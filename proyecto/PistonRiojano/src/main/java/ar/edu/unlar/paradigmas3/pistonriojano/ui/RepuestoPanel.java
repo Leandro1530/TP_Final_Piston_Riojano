@@ -1,0 +1,446 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+
+package ar.edu.unlar.paradigmas3.pistonriojano.ui;
+
+import ar.edu.unlar.paradigmas3.pistonriojano.dao.RepuestoDAO;
+import ar.edu.unlar.paradigmas3.pistonriojano.dao.RepuestoDAOJdbc;
+import ar.edu.unlar.paradigmas3.pistonriojano.modelo.Repuesto;
+import java.awt.Color;
+import java.awt.Component;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
+/**
+ *
+ * @author gustavo
+ */
+public class RepuestoPanel extends javax.swing.JPanel {
+
+    private static final int STOCK_BAJO_UMBRAL = 5;
+
+    private final RepuestoDAO repuestoDAO = new RepuestoDAOJdbc();
+    private List<Repuesto> repuestosCargados = new ArrayList<>();
+    private DefaultTableModel modeloRepuestos;
+    private boolean modoEdicion = false;
+
+    public RepuestoPanel() {
+        initComponents();
+        configurarTabla();
+        cargarTablaRepuestos();
+    }
+
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">
+    private void initComponents() {
+
+        jPanelSuperior = new javax.swing.JPanel();
+        jPanelFormulario = new javax.swing.JPanel();
+        jLabelCodigo = new javax.swing.JLabel();
+        jtfCodigo = new javax.swing.JTextField();
+        jLabelDescripcion = new javax.swing.JLabel();
+        jtfDescripcion = new javax.swing.JTextField();
+        jLabelPrecio = new javax.swing.JLabel();
+        jtfPrecio = new javax.swing.JTextField();
+        jLabelStock = new javax.swing.JLabel();
+        jtfStock = new javax.swing.JTextField();
+        jPanelAcciones = new javax.swing.JPanel();
+        jbGuardar = new javax.swing.JButton();
+        jbActualizarPrecioStock = new javax.swing.JButton();
+        jbEliminar = new javax.swing.JButton();
+        jbLimpiar = new javax.swing.JButton();
+        jPanelBusqueda = new javax.swing.JPanel();
+        jLabelBuscar = new javax.swing.JLabel();
+        jtfBuscarCodigo = new javax.swing.JTextField();
+        jbBuscar = new javax.swing.JButton();
+        jbRefrescar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtRepuestos = new javax.swing.JTable();
+
+        setPreferredSize(new java.awt.Dimension(800, 600));
+        setLayout(new java.awt.BorderLayout());
+
+        jPanelSuperior.setLayout(new java.awt.BorderLayout());
+
+        jPanelFormulario.setLayout(new java.awt.GridLayout(0, 4, 6, 4));
+
+        jLabelCodigo.setText("Código:");
+        jPanelFormulario.add(jLabelCodigo);
+        jPanelFormulario.add(jtfCodigo);
+
+        jLabelDescripcion.setText("Descripción:");
+        jPanelFormulario.add(jLabelDescripcion);
+        jPanelFormulario.add(jtfDescripcion);
+
+        jLabelPrecio.setText("Precio unitario actual ($):");
+        jPanelFormulario.add(jLabelPrecio);
+        jPanelFormulario.add(jtfPrecio);
+
+        jLabelStock.setText("Stock disponible:");
+        jPanelFormulario.add(jLabelStock);
+        jPanelFormulario.add(jtfStock);
+
+        jPanelSuperior.add(jPanelFormulario, java.awt.BorderLayout.NORTH);
+
+        jbGuardar.setText("Guardar repuesto");
+        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGuardarActionPerformed(evt);
+            }
+        });
+        jPanelAcciones.add(jbGuardar);
+
+        jbActualizarPrecioStock.setText("Actualizar precio y stock");
+        jbActualizarPrecioStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbActualizarPrecioStockActionPerformed(evt);
+            }
+        });
+        jPanelAcciones.add(jbActualizarPrecioStock);
+
+        jbEliminar.setText("Eliminar");
+        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEliminarActionPerformed(evt);
+            }
+        });
+        jPanelAcciones.add(jbEliminar);
+
+        jbLimpiar.setText("Limpiar / Nuevo");
+        jbLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbLimpiarActionPerformed(evt);
+            }
+        });
+        jPanelAcciones.add(jbLimpiar);
+
+        jPanelSuperior.add(jPanelAcciones, java.awt.BorderLayout.CENTER);
+
+        jLabelBuscar.setText("Buscar por código:");
+        jPanelBusqueda.add(jLabelBuscar);
+
+        jtfBuscarCodigo.setColumns(12);
+        jPanelBusqueda.add(jtfBuscarCodigo);
+
+        jbBuscar.setText("Buscar");
+        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscarActionPerformed(evt);
+            }
+        });
+        jPanelBusqueda.add(jbBuscar);
+
+        jbRefrescar.setText("Mostrar todos");
+        jbRefrescar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbRefrescarActionPerformed(evt);
+            }
+        });
+        jPanelBusqueda.add(jbRefrescar);
+
+        jPanelSuperior.add(jPanelBusqueda, java.awt.BorderLayout.SOUTH);
+
+        add(jPanelSuperior, java.awt.BorderLayout.NORTH);
+
+        jScrollPane1.setViewportView(jtRepuestos);
+
+        add(jScrollPane1, java.awt.BorderLayout.CENTER);
+    }// </editor-fold>
+
+    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {
+        guardarOEditarRepuesto();
+    }
+
+    private void jbActualizarPrecioStockActionPerformed(java.awt.event.ActionEvent evt) {
+        actualizarSoloPrecioYStock();
+    }
+
+    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {
+        eliminarRepuesto();
+    }
+
+    private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {
+        limpiarFormulario();
+    }
+
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {
+        buscarPorCodigo();
+    }
+
+    private void jbRefrescarActionPerformed(java.awt.event.ActionEvent evt) {
+        jtfBuscarCodigo.setText("");
+        cargarTablaRepuestos();
+    }
+
+    private void configurarTabla() {
+        modeloRepuestos = new DefaultTableModel(
+                new Object[]{"Código", "Descripción", "Precio Unitario ($)", "Stock Disponible", "Estado Stock"}, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        jtRepuestos.setModel(modeloRepuestos);
+
+        DefaultTableCellRenderer stockRenderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (!isSelected) {
+                    int stock = Integer.parseInt(table.getValueAt(row, 3).toString());
+                    if (stock == 0) {
+                        c.setBackground(new Color(255, 204, 204));
+                        c.setForeground(new Color(153, 0, 0));
+                    } else if (stock <= STOCK_BAJO_UMBRAL) {
+                        c.setBackground(new Color(255, 243, 205));
+                        c.setForeground(new Color(133, 100, 4));
+                    } else {
+                        c.setBackground(new Color(212, 237, 218));
+                        c.setForeground(new Color(21, 87, 36));
+                    }
+                }
+                return c;
+            }
+        };
+        jtRepuestos.getColumnModel().getColumn(3).setCellRenderer(stockRenderer);
+        jtRepuestos.getColumnModel().getColumn(4).setCellRenderer(stockRenderer);
+
+        jtRepuestos.getSelectionModel().addListSelectionListener((ListSelectionEvent e) -> {
+            if (!e.getValueIsAdjusting()) {
+                cargarSeleccionEnFormulario();
+            }
+        });
+    }
+
+    private void cargarTablaRepuestos() {
+        try {
+            repuestosCargados = repuestoDAO.listarTodos();
+            refrescarTabla(repuestosCargados);
+        } catch (SQLException e) {
+            mostrarError("No se pudo cargar el listado de repuestos.", e);
+        }
+    }
+
+    private void refrescarTabla(List<Repuesto> lista) {
+        modeloRepuestos.setRowCount(0);
+        for (Repuesto r : lista) {
+            String estadoStock;
+            if (r.getStockDisponible() == 0) {
+                estadoStock = "SIN STOCK";
+            } else if (r.getStockDisponible() <= STOCK_BAJO_UMBRAL) {
+                estadoStock = "STOCK BAJO";
+            } else {
+                estadoStock = "DISPONIBLE";
+            }
+
+            modeloRepuestos.addRow(new Object[]{
+                r.getCodigo(),
+                r.getDescripcion(),
+                r.getPrecioUnitarioActual(),
+                r.getStockDisponible(),
+                estadoStock
+            });
+        }
+    }
+
+    private void cargarSeleccionEnFormulario() {
+        int fila = jtRepuestos.getSelectedRow();
+        if (fila < 0 || fila >= repuestosCargados.size()) {
+            return;
+        }
+        Repuesto r = repuestosCargados.get(fila);
+        jtfCodigo.setText(r.getCodigo());
+        jtfCodigo.setEnabled(false);
+        jtfDescripcion.setText(r.getDescripcion());
+        jtfPrecio.setText(String.valueOf(r.getPrecioUnitarioActual()));
+        jtfStock.setText(String.valueOf(r.getStockDisponible()));
+        modoEdicion = true;
+    }
+
+    private void guardarOEditarRepuesto() {
+        String codigo = jtfCodigo.getText().trim().toUpperCase();
+        String descripcion = jtfDescripcion.getText().trim();
+        String textoPrecio = jtfPrecio.getText().trim();
+        String textoStock = jtfStock.getText().trim();
+
+        if (codigo.isEmpty() || descripcion.isEmpty() || textoPrecio.isEmpty() || textoStock.isEmpty()) {
+            mostrarAviso("Completá todos los campos obligatorios del repuesto.");
+            return;
+        }
+
+        double precio;
+        int stock;
+        try {
+            precio = Double.parseDouble(textoPrecio);
+            stock = Integer.parseInt(textoStock);
+        } catch (NumberFormatException e) {
+            mostrarAviso("El precio debe ser numérico y el stock un número entero.");
+            return;
+        }
+
+        if (precio < 0 || stock < 0) {
+            mostrarAviso("El precio y el stock no pueden ser negativos.");
+            return;
+        }
+
+        try {
+            if (modoEdicion) {
+                Repuesto repuesto = new Repuesto(codigo, descripcion, precio, stock);
+                repuestoDAO.actualizar(repuesto);
+                JOptionPane.showMessageDialog(this,
+                        "Repuesto " + codigo + " actualizado correctamente.",
+                        "Repuesto actualizado", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                if (repuestoDAO.buscarPorCodigo(codigo) != null) {
+                    mostrarAviso("Ya existe un repuesto con el código " + codigo + ".");
+                    return;
+                }
+                Repuesto nuevo = new Repuesto(codigo, descripcion, precio, stock);
+                repuestoDAO.insertar(nuevo);
+                JOptionPane.showMessageDialog(this,
+                        "Repuesto " + codigo + " registrado correctamente.",
+                        "Repuesto guardado", JOptionPane.INFORMATION_MESSAGE);
+            }
+            limpiarFormulario();
+            cargarTablaRepuestos();
+        } catch (SQLException e) {
+            mostrarError("No se pudo guardar el repuesto.", e);
+        }
+    }
+
+    private void actualizarSoloPrecioYStock() {
+        String codigo = jtfCodigo.getText().trim().toUpperCase();
+        if (codigo.isEmpty()) {
+            mostrarAviso("Seleccioná un repuesto de la tabla o ingresá su código.");
+            return;
+        }
+
+        double nuevoPrecio;
+        int nuevoStock;
+        try {
+            nuevoPrecio = Double.parseDouble(jtfPrecio.getText().trim());
+            nuevoStock = Integer.parseInt(jtfStock.getText().trim());
+        } catch (NumberFormatException e) {
+            mostrarAviso("Ingresá valores numéricos válidos para precio y stock.");
+            return;
+        }
+
+        if (nuevoPrecio < 0 || nuevoStock < 0) {
+            mostrarAviso("El precio y el stock no pueden ser negativos.");
+            return;
+        }
+
+        try {
+            if (repuestoDAO.buscarPorCodigo(codigo) == null) {
+                mostrarAviso("No se encontró ningún repuesto con el código " + codigo + ".");
+                return;
+            }
+            repuestoDAO.actualizarPrecioYStock(codigo, nuevoPrecio, nuevoStock);
+            JOptionPane.showMessageDialog(this,
+                    "Precio y stock actualizados para " + codigo + ".",
+                    "Actualización exitosa", JOptionPane.INFORMATION_MESSAGE);
+            limpiarFormulario();
+            cargarTablaRepuestos();
+        } catch (SQLException e) {
+            mostrarError("No se pudo actualizar precio y stock.", e);
+        }
+    }
+
+    private void buscarPorCodigo() {
+        String codigo = jtfBuscarCodigo.getText().trim().toUpperCase();
+        if (codigo.isEmpty()) {
+            cargarTablaRepuestos();
+            return;
+        }
+        try {
+            Repuesto encontrado = repuestoDAO.buscarPorCodigo(codigo);
+            repuestosCargados = new ArrayList<>();
+            if (encontrado != null) {
+                repuestosCargados.add(encontrado);
+            } else {
+                mostrarAviso("No se encontró ningún repuesto con el código " + codigo + ".");
+            }
+            refrescarTabla(repuestosCargados);
+        } catch (SQLException e) {
+            mostrarError("Error al buscar el repuesto.", e);
+        }
+    }
+
+    private void eliminarRepuesto() {
+        int fila = jtRepuestos.getSelectedRow();
+        if (fila < 0) {
+            mostrarAviso("Seleccioná un repuesto de la tabla para eliminar.");
+            return;
+        }
+        Repuesto seleccionado = repuestosCargados.get(fila);
+        int opcion = JOptionPane.showConfirmDialog(this,
+                "¿Seguro que deseás eliminar el repuesto " + seleccionado.getCodigo() + " - " + seleccionado.getDescripcion() + "?",
+                "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+        if (opcion != JOptionPane.YES_OPTION) {
+            return;
+        }
+        try {
+            repuestoDAO.eliminar(seleccionado.getCodigo());
+            JOptionPane.showMessageDialog(this,
+                    "Repuesto eliminado correctamente.",
+                    "Repuesto eliminado", JOptionPane.INFORMATION_MESSAGE);
+            limpiarFormulario();
+            cargarTablaRepuestos();
+        } catch (SQLException e) {
+            mostrarError("No se pudo eliminar el repuesto (verificá que no esté asociado a una orden).", e);
+        }
+    }
+
+    private void limpiarFormulario() {
+        jtfCodigo.setText("");
+        jtfCodigo.setEnabled(true);
+        jtfDescripcion.setText("");
+        jtfPrecio.setText("");
+        jtfStock.setText("");
+        modoEdicion = false;
+        jtRepuestos.clearSelection();
+    }
+
+    private void mostrarAviso(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, "Aviso", JOptionPane.WARNING_MESSAGE);
+    }
+
+    private void mostrarError(String mensaje, SQLException e) {
+        JOptionPane.showMessageDialog(this, mensaje + "\n" + e.getMessage(),
+                "Error de base de datos", JOptionPane.ERROR_MESSAGE);
+    }
+
+    // Variables declaration - do not modify
+    private javax.swing.JLabel jLabelBuscar;
+    private javax.swing.JLabel jLabelCodigo;
+    private javax.swing.JLabel jLabelDescripcion;
+    private javax.swing.JLabel jLabelPrecio;
+    private javax.swing.JLabel jLabelStock;
+    private javax.swing.JPanel jPanelAcciones;
+    private javax.swing.JPanel jPanelBusqueda;
+    private javax.swing.JPanel jPanelFormulario;
+    private javax.swing.JPanel jPanelSuperior;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbActualizarPrecioStock;
+    private javax.swing.JButton jbBuscar;
+    private javax.swing.JButton jbEliminar;
+    private javax.swing.JButton jbGuardar;
+    private javax.swing.JButton jbLimpiar;
+    private javax.swing.JButton jbRefrescar;
+    private javax.swing.JTable jtRepuestos;
+    private javax.swing.JTextField jtfBuscarCodigo;
+    private javax.swing.JTextField jtfCodigo;
+    private javax.swing.JTextField jtfDescripcion;
+    private javax.swing.JTextField jtfPrecio;
+    private javax.swing.JTextField jtfStock;
+    // End of variables declaration
+}
