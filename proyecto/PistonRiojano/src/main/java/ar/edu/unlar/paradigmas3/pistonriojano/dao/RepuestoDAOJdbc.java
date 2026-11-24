@@ -5,7 +5,7 @@
 package ar.edu.unlar.paradigmas3.pistonriojano.dao;
 
 import ar.edu.unlar.paradigmas3.pistonriojano.modelo.Repuesto;
-import dominio.ConexionBD;
+import ar.edu.unlar.paradigmas3.pistonriojano.dominio.ConexionBD;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

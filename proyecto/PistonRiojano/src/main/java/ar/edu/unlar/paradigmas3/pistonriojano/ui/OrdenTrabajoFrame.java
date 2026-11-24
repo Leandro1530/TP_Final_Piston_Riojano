@@ -4,17 +4,55 @@
  */
 package ar.edu.unlar.paradigmas3.pistonriojano.ui;
 
+import ar.edu.unlar.paradigmas3.pistonriojano.dao.MecanicoDAO;
+import ar.edu.unlar.paradigmas3.pistonriojano.dao.MecanicoDAOJdbc;
+import ar.edu.unlar.paradigmas3.pistonriojano.dao.OrdenTrabajoDAO;
+import ar.edu.unlar.paradigmas3.pistonriojano.dao.OrdenTrabajoDAOJdbc;
+import ar.edu.unlar.paradigmas3.pistonriojano.dao.RepuestoDAO;
+import ar.edu.unlar.paradigmas3.pistonriojano.dao.RepuestoDAOJdbc;
+import ar.edu.unlar.paradigmas3.pistonriojano.dao.VehiculoDAO;
+import ar.edu.unlar.paradigmas3.pistonriojano.dao.VehiculoDAOJdbc;
+import ar.edu.unlar.paradigmas3.pistonriojano.modelo.DetalleOrden;
+import ar.edu.unlar.paradigmas3.pistonriojano.modelo.EstadoOrden;
+import ar.edu.unlar.paradigmas3.pistonriojano.modelo.Mecanico;
+import ar.edu.unlar.paradigmas3.pistonriojano.modelo.OrdenTrabajo;
+import ar.edu.unlar.paradigmas3.pistonriojano.modelo.Repuesto;
+import ar.edu.unlar.paradigmas3.pistonriojano.modelo.StockInsuficienteException;
+import ar.edu.unlar.paradigmas3.pistonriojano.modelo.Vehiculo;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Leandro
  */
 public class OrdenTrabajoFrame extends javax.swing.JPanel {
 
+    private final OrdenTrabajoDAO ordenDAO = new OrdenTrabajoDAOJdbc();
+    private final VehiculoDAO vehiculoDAO = new VehiculoDAOJdbc();
+    private final MecanicoDAO mecanicoDAO = new MecanicoDAOJdbc();
+    private final RepuestoDAO repuestoDAO = new RepuestoDAOJdbc();
+
+    private OrdenTrabajo ordenActual = new OrdenTrabajo();
+    private List<OrdenTrabajo> ordenesCargadas = new ArrayList<>();
+    private DefaultTableModel modeloDetalles;
+    private DefaultTableModel modeloOrdenes;
+
     /**
      * Creates new form OrdenTrabajoFrame
      */
     public OrdenTrabajoFrame() {
         initComponents();
+        configurarTablas();
+        configurarComboEstado();
+        cargarCombos();
+        cargarTablaOrdenes();
     }
 
     /**
@@ -26,19 +64,447 @@ public class OrdenTrabajoFrame extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jPanelDatos = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jtfNumero = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jtfFechaIngreso = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jtfDescripcion = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jtfHorasManoObra = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jcbEstado = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        jcbVehiculo = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        jcbMecanico = new javax.swing.JComboBox<>();
+        jPanelCentro = new javax.swing.JPanel();
+        jPanelRepuesto = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jcbRepuesto = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        jtfCantidad = new javax.swing.JTextField();
+        jbAgregarRepuesto = new javax.swing.JButton();
+        jbQuitarRepuesto = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtDetalles = new javax.swing.JTable();
+        jPanelInferior = new javax.swing.JPanel();
+        jPanelBotones = new javax.swing.JPanel();
+        jbGuardar = new javax.swing.JButton();
+        jbActualizarEstado = new javax.swing.JButton();
+        jbEliminar = new javax.swing.JButton();
+        jbLimpiar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtOrdenes = new javax.swing.JTable();
+
+        setPreferredSize(new java.awt.Dimension(800, 600));
+        setLayout(new java.awt.BorderLayout());
+
+        jPanelDatos.setLayout(new java.awt.GridLayout(0, 4, 6, 4));
+
+        jLabel1.setText("N° de orden:");
+        jPanelDatos.add(jLabel1);
+        jPanelDatos.add(jtfNumero);
+
+        jLabel2.setText("Fecha ingreso (aaaa-mm-dd):");
+        jPanelDatos.add(jLabel2);
+        jPanelDatos.add(jtfFechaIngreso);
+
+        jLabel3.setText("Descripción del problema:");
+        jPanelDatos.add(jLabel3);
+        jPanelDatos.add(jtfDescripcion);
+
+        jLabel4.setText("Horas de mano de obra:");
+        jPanelDatos.add(jLabel4);
+        jPanelDatos.add(jtfHorasManoObra);
+
+        jLabel5.setText("Estado:");
+        jPanelDatos.add(jLabel5);
+        jPanelDatos.add(jcbEstado);
+
+        jLabel6.setText("Vehículo:");
+        jPanelDatos.add(jLabel6);
+        jPanelDatos.add(jcbVehiculo);
+
+        jLabel7.setText("Mecánico:");
+        jPanelDatos.add(jLabel7);
+        jPanelDatos.add(jcbMecanico);
+
+        add(jPanelDatos, java.awt.BorderLayout.NORTH);
+
+        jPanelCentro.setLayout(new java.awt.BorderLayout());
+
+        jLabel8.setText("Repuesto:");
+        jPanelRepuesto.add(jLabel8);
+        jPanelRepuesto.add(jcbRepuesto);
+
+        jLabel9.setText("Cantidad:");
+        jPanelRepuesto.add(jLabel9);
+
+        jtfCantidad.setColumns(5);
+        jPanelRepuesto.add(jtfCantidad);
+
+        jbAgregarRepuesto.setText("Agregar repuesto");
+        jbAgregarRepuesto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAgregarRepuestoActionPerformed(evt);
+            }
+        });
+        jPanelRepuesto.add(jbAgregarRepuesto);
+
+        jbQuitarRepuesto.setText("Quitar repuesto");
+        jbQuitarRepuesto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbQuitarRepuestoActionPerformed(evt);
+            }
+        });
+        jPanelRepuesto.add(jbQuitarRepuesto);
+
+        jPanelCentro.add(jPanelRepuesto, java.awt.BorderLayout.NORTH);
+
+        jScrollPane1.setViewportView(jtDetalles);
+
+        jPanelCentro.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        add(jPanelCentro, java.awt.BorderLayout.CENTER);
+
+        jPanelInferior.setLayout(new java.awt.BorderLayout());
+
+        jbGuardar.setText("Guardar orden");
+        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGuardarActionPerformed(evt);
+            }
+        });
+        jPanelBotones.add(jbGuardar);
+
+        jbActualizarEstado.setText("Actualizar estado");
+        jbActualizarEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbActualizarEstadoActionPerformed(evt);
+            }
+        });
+        jPanelBotones.add(jbActualizarEstado);
+
+        jbEliminar.setText("Eliminar orden");
+        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEliminarActionPerformed(evt);
+            }
+        });
+        jPanelBotones.add(jbEliminar);
+
+        jbLimpiar.setText("Limpiar");
+        jbLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbLimpiarActionPerformed(evt);
+            }
+        });
+        jPanelBotones.add(jbLimpiar);
+
+        jPanelInferior.add(jPanelBotones, java.awt.BorderLayout.NORTH);
+
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(100, 150));
+        jScrollPane2.setViewportView(jtOrdenes);
+
+        jPanelInferior.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+
+        add(jPanelInferior, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbAgregarRepuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarRepuestoActionPerformed
+        agregarRepuesto();
+    }//GEN-LAST:event_jbAgregarRepuestoActionPerformed
+
+    private void jbQuitarRepuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbQuitarRepuestoActionPerformed
+        quitarRepuesto();
+    }//GEN-LAST:event_jbQuitarRepuestoActionPerformed
+
+    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+        guardarOrden();
+    }//GEN-LAST:event_jbGuardarActionPerformed
+
+    private void jbActualizarEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarEstadoActionPerformed
+        actualizarEstadoOrden();
+    }//GEN-LAST:event_jbActualizarEstadoActionPerformed
+
+    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
+        eliminarOrden();
+    }//GEN-LAST:event_jbEliminarActionPerformed
+
+    private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
+        limpiarTodo();
+    }//GEN-LAST:event_jbLimpiarActionPerformed
+
+    private void configurarTablas() {
+        modeloDetalles = new DefaultTableModel(
+                new Object[]{"Código", "Repuesto", "Cantidad", "Precio aplicado", "Subtotal"}, 0);
+        jtDetalles.setModel(modeloDetalles);
+
+        modeloOrdenes = new DefaultTableModel(
+                new Object[]{"N°", "Fecha", "Estado", "Vehículo", "Mecánico", "Repuestos", "Total"}, 0);
+        jtOrdenes.setModel(modeloOrdenes);
+    }
+
+    private void configurarComboEstado() {
+        DefaultComboBoxModel<EstadoOrden> modelo = new DefaultComboBoxModel<>(EstadoOrden.values());
+        jcbEstado.setModel(modelo);
+        jcbEstado.setSelectedItem(EstadoOrden.PENDIENTE);
+    }
+
+    private void cargarCombos() {
+        try {
+            List<Vehiculo> vehiculos = vehiculoDAO.listarTodos();
+            jcbVehiculo.setModel(new DefaultComboBoxModel<>(vehiculos.toArray(new Vehiculo[0])));
+
+            List<Mecanico> mecanicos = mecanicoDAO.listarTodos();
+            jcbMecanico.setModel(new DefaultComboBoxModel<>(mecanicos.toArray(new Mecanico[0])));
+
+            List<Repuesto> repuestos = repuestoDAO.listarTodos();
+            jcbRepuesto.setModel(new DefaultComboBoxModel<>(repuestos.toArray(new Repuesto[0])));
+        } catch (SQLException e) {
+            mostrarError("No se pudieron cargar los datos de la base.", e);
+        }
+    }
+
+    private void cargarTablaOrdenes() {
+        try {
+            ordenesCargadas = ordenDAO.listarTodos();
+            modeloOrdenes.setRowCount(0);
+            for (OrdenTrabajo o : ordenesCargadas) {
+                String mecanico = o.getMecanico().getNombre() + " " + o.getMecanico().getApellido();
+                modeloOrdenes.addRow(new Object[]{
+                    o.getNumero(),
+                    o.getFechaIngreso(),
+                    o.getEstado(),
+                    o.getVehiculo(),
+                    mecanico,
+                    o.getDetalles().size(),
+                    o.calcularTotal()
+                });
+            }
+        } catch (SQLException e) {
+            mostrarError("No se pudo cargar la lista de órdenes.", e);
+        }
+    }
+
+    private void refrescarTablaDetalles() {
+        modeloDetalles.setRowCount(0);
+        for (DetalleOrden d : ordenActual.getDetalles()) {
+            modeloDetalles.addRow(new Object[]{
+                d.getRepuesto().getCodigo(),
+                d.getRepuesto().getDescripcion(),
+                d.getCantidad(),
+                d.getPrecioAplicado(),
+                d.calcularSubtotal()
+            });
+        }
+    }
+
+    private void agregarRepuesto() {
+        Repuesto repuesto = (Repuesto) jcbRepuesto.getSelectedItem();
+        if (repuesto == null) {
+            mostrarAviso("Seleccioná un repuesto.");
+            return;
+        }
+        int cantidad;
+        try {
+            cantidad = Integer.parseInt(jtfCantidad.getText().trim());
+        } catch (NumberFormatException e) {
+            mostrarAviso("La cantidad debe ser un número entero.");
+            return;
+        }
+        if (cantidad <= 0) {
+            mostrarAviso("La cantidad debe ser mayor a cero.");
+            return;
+        }
+        if (!repuesto.hayStockSuficiente(cantidad)) {
+            mostrarAviso("Stock insuficiente de " + repuesto.getDescripcion()
+                    + ". Disponible: " + repuesto.getStockDisponible() + ".");
+            return;
+        }
+        DetalleOrden detalle = new DetalleOrden(repuesto, cantidad, repuesto.getPrecioUnitarioActual());
+        ordenActual.agregarDetalle(detalle);
+        jtfCantidad.setText("");
+        refrescarTablaDetalles();
+    }
+
+    private void quitarRepuesto() {
+        int fila = jtDetalles.getSelectedRow();
+        if (fila < 0) {
+            mostrarAviso("Seleccioná un renglón de la tabla de repuestos para quitar.");
+            return;
+        }
+        DetalleOrden detalle = ordenActual.getDetalles().get(fila);
+        ordenActual.quitarRepuesto(detalle);
+        refrescarTablaDetalles();
+    }
+
+    private void guardarOrden() {
+        try {
+            int numero = Integer.parseInt(jtfNumero.getText().trim());
+
+            String descripcion = jtfDescripcion.getText().trim();
+            if (descripcion.isEmpty()) {
+                mostrarAviso("Ingresá la descripción del problema.");
+                return;
+            }
+
+            String textoHoras = jtfHorasManoObra.getText().trim();
+            double horas = textoHoras.isEmpty() ? 0 : Double.parseDouble(textoHoras);
+            if (horas < 0) {
+                mostrarAviso("Las horas de mano de obra no pueden ser negativas.");
+                return;
+            }
+
+            String textoFecha = jtfFechaIngreso.getText().trim();
+            LocalDate fecha = textoFecha.isEmpty() ? LocalDate.now() : LocalDate.parse(textoFecha);
+
+            EstadoOrden estado = (EstadoOrden) jcbEstado.getSelectedItem();
+            Vehiculo vehiculo = (Vehiculo) jcbVehiculo.getSelectedItem();
+            Mecanico mecanico = (Mecanico) jcbMecanico.getSelectedItem();
+            if (estado == null || vehiculo == null || mecanico == null) {
+                mostrarAviso("Seleccioná estado, vehículo y mecánico.");
+                return;
+            }
+
+            ordenActual.setNumero(numero);
+            ordenActual.setDescripcionProblema(descripcion);
+            ordenActual.setHorasManoObra(horas);
+            ordenActual.setFechaIngreso(fecha);
+            ordenActual.setEstado(estado);
+            ordenActual.setVehiculo(vehiculo);
+            ordenActual.setMecanico(mecanico);
+
+            ordenDAO.insertar(ordenActual);
+
+            JOptionPane.showMessageDialog(this,
+                    "Orden N° " + numero + " guardada correctamente.\nTotal: $" + ordenActual.calcularTotal(),
+                    "Orden guardada", JOptionPane.INFORMATION_MESSAGE);
+            limpiarTodo();
+        } catch (NumberFormatException e) {
+            mostrarAviso("Revisá el número de orden y las horas: deben ser numéricos.");
+        } catch (DateTimeParseException e) {
+            mostrarAviso("La fecha debe tener el formato aaaa-mm-dd (por ejemplo 2026-11-24).");
+        } catch (StockInsuficienteException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(),
+                    "Stock insuficiente", JOptionPane.WARNING_MESSAGE);
+            limpiarTodo();
+        } catch (SQLException e) {
+            mostrarError("No se pudo guardar la orden.", e);
+        }
+    }
+
+    private void actualizarEstadoOrden() {
+        int fila = jtOrdenes.getSelectedRow();
+        if (fila < 0) {
+            mostrarAviso("Seleccioná una orden de la tabla para actualizar su estado.");
+            return;
+        }
+        EstadoOrden nuevoEstado = (EstadoOrden) jcbEstado.getSelectedItem();
+        if (nuevoEstado == null) {
+            mostrarAviso("Seleccioná un estado.");
+            return;
+        }
+        OrdenTrabajo ordenSeleccionada = ordenesCargadas.get(fila);
+        ordenSeleccionada.setEstado(nuevoEstado);
+        try {
+            ordenDAO.actualizar(ordenSeleccionada);
+            JOptionPane.showMessageDialog(this,
+                    "Estado de la orden N° " + ordenSeleccionada.getNumero() + " actualizado a " + nuevoEstado + ".",
+                    "Estado actualizado", JOptionPane.INFORMATION_MESSAGE);
+            cargarTablaOrdenes();
+        } catch (SQLException e) {
+            mostrarError("No se pudo actualizar el estado de la orden.", e);
+        }
+    }
+
+    private void eliminarOrden() {
+        int fila = jtOrdenes.getSelectedRow();
+        if (fila < 0) {
+            mostrarAviso("Seleccioná una orden de la tabla para eliminar.");
+            return;
+        }
+        OrdenTrabajo ordenSeleccionada = ordenesCargadas.get(fila);
+        int opcion = JOptionPane.showConfirmDialog(this,
+                "¿Seguro que deseás eliminar la orden N° " + ordenSeleccionada.getNumero() + "?",
+                "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+        if (opcion != JOptionPane.YES_OPTION) {
+            return;
+        }
+        try {
+            ordenDAO.eliminar(ordenSeleccionada.getId());
+            JOptionPane.showMessageDialog(this,
+                    "Orden N° " + ordenSeleccionada.getNumero() + " eliminada correctamente.",
+                    "Orden eliminada", JOptionPane.INFORMATION_MESSAGE);
+            cargarTablaOrdenes();
+            cargarCombos();
+        } catch (SQLException e) {
+            mostrarError("No se pudo eliminar la orden.", e);
+        }
+    }
+
+    private void limpiarCampos() {
+        jtfNumero.setText("");
+        jtfFechaIngreso.setText("");
+        jtfDescripcion.setText("");
+        jtfHorasManoObra.setText("");
+        jtfCantidad.setText("");
+        jcbEstado.setSelectedItem(EstadoOrden.PENDIENTE);
+        ordenActual = new OrdenTrabajo();
+        refrescarTablaDetalles();
+    }
+
+    private void limpiarTodo() {
+        limpiarCampos();
+        cargarCombos();
+        cargarTablaOrdenes();
+    }
+
+    private void mostrarAviso(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, "Aviso", JOptionPane.WARNING_MESSAGE);
+    }
+
+    private void mostrarError(String mensaje, SQLException e) {
+        JOptionPane.showMessageDialog(this, mensaje + "\n" + e.getMessage(),
+                "Error de base de datos", JOptionPane.ERROR_MESSAGE);
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanelBotones;
+    private javax.swing.JPanel jPanelCentro;
+    private javax.swing.JPanel jPanelDatos;
+    private javax.swing.JPanel jPanelInferior;
+    private javax.swing.JPanel jPanelRepuesto;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton jbActualizarEstado;
+    private javax.swing.JButton jbAgregarRepuesto;
+    private javax.swing.JButton jbEliminar;
+    private javax.swing.JButton jbGuardar;
+    private javax.swing.JButton jbLimpiar;
+    private javax.swing.JButton jbQuitarRepuesto;
+    private javax.swing.JComboBox<ar.edu.unlar.paradigmas3.pistonriojano.modelo.EstadoOrden> jcbEstado;
+    private javax.swing.JComboBox<ar.edu.unlar.paradigmas3.pistonriojano.modelo.Mecanico> jcbMecanico;
+    private javax.swing.JComboBox<ar.edu.unlar.paradigmas3.pistonriojano.modelo.Repuesto> jcbRepuesto;
+    private javax.swing.JComboBox<ar.edu.unlar.paradigmas3.pistonriojano.modelo.Vehiculo> jcbVehiculo;
+    private javax.swing.JTable jtDetalles;
+    private javax.swing.JTable jtOrdenes;
+    private javax.swing.JTextField jtfCantidad;
+    private javax.swing.JTextField jtfDescripcion;
+    private javax.swing.JTextField jtfFechaIngreso;
+    private javax.swing.JTextField jtfHorasManoObra;
+    private javax.swing.JTextField jtfNumero;
     // End of variables declaration//GEN-END:variables
 }

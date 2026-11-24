@@ -5,7 +5,7 @@
 package ar.edu.unlar.paradigmas3.pistonriojano;
 
 import ar.edu.unlar.paradigmas3.pistonriojano.modelo.*;
-import dominio.ConexionBD;
+import ar.edu.unlar.paradigmas3.pistonriojano.dominio.ConexionBD;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;

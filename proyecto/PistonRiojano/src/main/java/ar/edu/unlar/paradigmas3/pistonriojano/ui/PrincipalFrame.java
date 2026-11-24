@@ -4,19 +4,25 @@
  */
 package ar.edu.unlar.paradigmas3.pistonriojano.ui;
 
+import java.awt.BorderLayout;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Leandro
  */
 public class PrincipalFrame extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PrincipalFrame.class.getName());
 
     /**
-     * Creates new form Principal
+     * Creates new form PrincipalFrame
      */
     public PrincipalFrame() {
         initComponents();
+        configurarVentana();
+        mostrarOrdenes();
     }
 
     /**
@@ -28,21 +34,135 @@ public class PrincipalFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jpContenedor = new javax.swing.JPanel();
+        jmbMenu = new javax.swing.JMenuBar();
+        jmModulos = new javax.swing.JMenu();
+        jmiOrdenes = new javax.swing.JMenuItem();
+        jmiVehiculos = new javax.swing.JMenuItem();
+        jmiRepuestos = new javax.swing.JMenuItem();
+        jmiClientes = new javax.swing.JMenuItem();
+        jmiMecanicos = new javax.swing.JMenuItem();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jpContenedor.setLayout(new java.awt.BorderLayout());
+        getContentPane().add(jpContenedor, java.awt.BorderLayout.CENTER);
+
+        jmModulos.setText("Módulos");
+
+        jmiOrdenes.setText("Órdenes de Trabajo");
+        jmiOrdenes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiOrdenesActionPerformed(evt);
+            }
+        });
+        jmModulos.add(jmiOrdenes);
+
+        jmiVehiculos.setText("Vehículos");
+        jmiVehiculos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiVehiculosActionPerformed(evt);
+            }
+        });
+        jmModulos.add(jmiVehiculos);
+
+        jmiRepuestos.setText("Repuestos");
+        jmiRepuestos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiRepuestosActionPerformed(evt);
+            }
+        });
+        jmModulos.add(jmiRepuestos);
+
+        jmiClientes.setText("Clientes");
+        jmiClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiClientesActionPerformed(evt);
+            }
+        });
+        jmModulos.add(jmiClientes);
+
+        jmiMecanicos.setText("Mecánicos");
+        jmiMecanicos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiMecanicosActionPerformed(evt);
+            }
+        });
+        jmModulos.add(jmiMecanicos);
+
+        jmbMenu.add(jmModulos);
+
+        setJMenuBar(jmbMenu);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jmiOrdenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiOrdenesActionPerformed
+        mostrarOrdenes();
+    }//GEN-LAST:event_jmiOrdenesActionPerformed
+
+    private void jmiVehiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiVehiculosActionPerformed
+        mostrarVehiculos();
+    }//GEN-LAST:event_jmiVehiculosActionPerformed
+
+    private void jmiRepuestosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRepuestosActionPerformed
+        mostrarRepuestos();
+    }//GEN-LAST:event_jmiRepuestosActionPerformed
+
+    private void jmiClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiClientesActionPerformed
+        mostrarClientes();
+    }//GEN-LAST:event_jmiClientesActionPerformed
+
+    private void jmiMecanicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiMecanicosActionPerformed
+        mostrarMecanicos();
+    }//GEN-LAST:event_jmiMecanicosActionPerformed
+
+    private void configurarVentana() {
+        setTitle("Pistón Riojano - Menú Principal");
+        setLocationRelativeTo(null);
+    }
+
+    private void mostrarPanel(JPanel panel) {
+        jpContenedor.removeAll();
+        jpContenedor.add(panel, BorderLayout.CENTER);
+        jpContenedor.revalidate();
+        jpContenedor.repaint();
+    }
+
+    private void mostrarOrdenes() {
+        mostrarPanel(new OrdenTrabajoFrame());
+    }
+
+    private void mostrarVehiculos() {
+        // Cuando Gustavo agregue VehiculoPanel al paquete ui, reemplazar por:
+        // mostrarPanel(new VehiculoPanel());
+        mostrarModuloPendiente("Vehículos", "Gustavo");
+    }
+
+    private void mostrarRepuestos() {
+        // Cuando Gustavo agregue RepuestoPanel al paquete ui, reemplazar por:
+        // mostrarPanel(new RepuestoPanel());
+        mostrarModuloPendiente("Repuestos", "Gustavo");
+    }
+
+    private void mostrarClientes() {
+        // Cuando Fabricio / River agregue ClientePanel al paquete ui, reemplazar por:
+        // mostrarPanel(new ClientePanel());
+        mostrarModuloPendiente("Clientes", "Fabricio / River");
+    }
+
+    private void mostrarMecanicos() {
+        // Cuando Fabricio / River agregue MecanicoPanel al paquete ui, reemplazar por:
+        // mostrarPanel(new MecanicoPanel());
+        mostrarModuloPendiente("Mecánicos", "Fabricio / River");
+    }
+
+    private void mostrarModuloPendiente(String nombreModulo, String responsable) {
+        JOptionPane.showMessageDialog(this,
+                "El panel de " + nombreModulo + " todavía no fue integrado (a cargo de " + responsable + ").",
+                "Módulo pendiente de integración",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
 
     /**
      * @param args the command line arguments
@@ -70,5 +190,13 @@ public class PrincipalFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu jmModulos;
+    private javax.swing.JMenuBar jmbMenu;
+    private javax.swing.JMenuItem jmiClientes;
+    private javax.swing.JMenuItem jmiMecanicos;
+    private javax.swing.JMenuItem jmiOrdenes;
+    private javax.swing.JMenuItem jmiRepuestos;
+    private javax.swing.JMenuItem jmiVehiculos;
+    private javax.swing.JPanel jpContenedor;
     // End of variables declaration//GEN-END:variables
 }

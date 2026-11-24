@@ -9,7 +9,7 @@ import ar.edu.unlar.paradigmas3.pistonriojano.modelo.Cliente;
 import ar.edu.unlar.paradigmas3.pistonriojano.modelo.Moto;
 import ar.edu.unlar.paradigmas3.pistonriojano.modelo.TipoCombustible;
 import ar.edu.unlar.paradigmas3.pistonriojano.modelo.Vehiculo;
-import dominio.ConexionBD;
+import ar.edu.unlar.paradigmas3.pistonriojano.dominio.ConexionBD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

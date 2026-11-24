@@ -6,7 +6,7 @@ package ar.edu.unlar.paradigmas3.pistonriojano.dao;
 
 import ar.edu.unlar.paradigmas3.pistonriojano.modelo.Especialidad;
 import ar.edu.unlar.paradigmas3.pistonriojano.modelo.Mecanico;
-import dominio.ConexionBD;
+import ar.edu.unlar.paradigmas3.pistonriojano.dominio.ConexionBD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
