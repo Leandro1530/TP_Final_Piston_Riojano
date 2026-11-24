@@ -4,33 +4,55 @@
  */
 package ar.edu.unlar.paradigmas3.pistonriojano.modelo;
 
-import java.util.Objects;
 /**
  *
  * @author gustavo
  */
+
+import java.util.Objects;
+
 public abstract class Vehiculo {
-    
+
+    private Integer id;
     private String patente;
     private String marca;
     private String modelo;
     private int anio;
-    
-    public Vehiculo(){
-    }
-    
-    public Vehiculo(String patente, String marca, String modelo, int anio){
+    private Cliente propietario;
+
+    public Vehiculo(String patente, String marca, String modelo, int anio) {
         this.patente = patente;
         this.marca = marca;
         this.modelo = modelo;
         this.anio = anio;
     }
-    
-    /**
-     * Método polimórfico para obtener el coeficiente de cálculo de mano de obra
-     * sin utilizar instanceof.
-     */
+
+    public Vehiculo(String patente, String marca, String modelo, int anio, Cliente propietario) {
+        this.patente = patente;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.anio = anio;
+        this.propietario = propietario;
+    }
+
+    public Vehiculo(Integer id, String patente, String marca, String modelo, int anio, Cliente propietario) {
+        this.id = id;
+        this.patente = patente;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.anio = anio;
+        this.propietario = propietario;
+    }
+
     public abstract double calcularCoeficiente();
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getPatente() {
         return patente;
@@ -64,11 +86,19 @@ public abstract class Vehiculo {
         this.anio = anio;
     }
 
+    public Cliente getPropietario() {
+        return propietario;
+    }
+
+    public void setPropietario(Cliente propietario) {
+        this.propietario = propietario;
+    }
+
     @Override
     public String toString() {
         return patente + " - " + marca + " " + modelo + " (" + anio + ")";
     }
-    
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -81,6 +111,4 @@ public abstract class Vehiculo {
     public int hashCode() {
         return Objects.hash(patente);
     }
-    
-    
 }

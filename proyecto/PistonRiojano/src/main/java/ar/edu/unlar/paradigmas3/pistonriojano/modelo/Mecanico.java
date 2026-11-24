@@ -11,6 +11,7 @@ import java.util.Objects;
  * @author river
  */
 public class Mecanico extends Persona {
+
     private Integer legajo;
     private Especialidad especialidad;
     private double valorHora;
@@ -79,9 +80,6 @@ public class Mecanico extends Persona {
 
     @Override
     public String toString() {
-        return "Mecanico{" + "legajo=" + legajo + ", especialidad=" + especialidad + ", valorHora=" + valorHora + '}';
+        return getNombre() + " " + getApellido() + " (Legajo: " + legajo + " - " + especialidad + ")";
     }
-    
-    
-
 }

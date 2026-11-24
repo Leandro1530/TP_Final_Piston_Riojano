@@ -13,11 +13,11 @@ import java.util.Objects;
  * @author river
  */
 public class Cliente extends Persona {
-    
-private String dni;
-private String telefono;
-private String email;
-private List <Vehiculo> vehiculos;
+
+    private String dni;
+    private String telefono;
+    private String email;
+    private List<Vehiculo> vehiculos;
 
     public Cliente(String dni, String telefono, String email, List<Vehiculo> vehiculos, Integer id, String nombre, String apellido) {
         super(id, nombre, apellido);
@@ -35,12 +35,9 @@ private List <Vehiculo> vehiculos;
     }
 
     public Cliente() {
-        
         this.vehiculos = new ArrayList<>();
-        
     }
 
-    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -97,9 +94,6 @@ private List <Vehiculo> vehiculos;
 
     @Override
     public String toString() {
-        return "Cliente{" + "dni=" + dni + ", telefono=" + telefono + ", email=" + email + '}';
+        return getNombre() + " " + getApellido() + " (DNI: " + dni + ")";
     }
-
-
-
 }
