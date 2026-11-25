@@ -4,9 +4,9 @@
  */
 package ar.edu.unlar.paradigmas3.pistonriojano.dao;
 
+import ar.edu.unlar.paradigmas3.pistonriojano.dominio.ConexionBD;
 import ar.edu.unlar.paradigmas3.pistonriojano.modelo.Especialidad;
 import ar.edu.unlar.paradigmas3.pistonriojano.modelo.Mecanico;
-import ar.edu.unlar.paradigmas3.pistonriojano.dominio.ConexionBD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,6 +22,58 @@ public class MecanicoDAOJdbc implements MecanicoDAO {
 
     private static final String SQL_BASE
             = "SELECT id, legajo, nombre, apellido, especialidad, valor_hora FROM mecanicos";
+
+    @Override
+    public void insertar(Mecanico mecanico) throws SQLException {
+        String sql = "INSERT INTO mecanicos (legajo, nombre, apellido, especialidad, valor_hora) "
+                + "VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = ConexionBD.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, mecanico.getLegajo());
+            ps.setString(2, mecanico.getNombre());
+            ps.setString(3, mecanico.getApellido());
+            ps.setString(4, mecanico.getEspecialidad() != null ? mecanico.getEspecialidad().name() : null);
+            ps.setDouble(5, mecanico.getValorHora());
+            ps.executeUpdate();
+        }
+    }
+
+    @Override
+    public void actualizar(Mecanico mecanico) throws SQLException {
+        String sql = "UPDATE mecanicos SET legajo = ?, nombre = ?, apellido = ?, especialidad = ?, valor_hora = ? "
+                + "WHERE id = ?";
+        try (Connection conn = ConexionBD.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, mecanico.getLegajo());
+            ps.setString(2, mecanico.getNombre());
+            ps.setString(3, mecanico.getApellido());
+            ps.setString(4, mecanico.getEspecialidad() != null ? mecanico.getEspecialidad().name() : null);
+            ps.setDouble(5, mecanico.getValorHora());
+            ps.setInt(6, mecanico.getId());
+            ps.executeUpdate();
+        }
+    }
+
+    @Override
+    public void eliminar(int id) throws SQLException {
+        String sql = "DELETE FROM mecanicos WHERE id = ?";
+        try (Connection conn = ConexionBD.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        }
+    }
+
+    @Override
+    public Mecanico buscarPorId(int id) throws SQLException {
+        String sql = SQL_BASE + " WHERE id = ?";
+        try (Connection conn = ConexionBD.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return mapearMecanico(rs);
+                }
+            }
+        }
+        return null;
+    }
 
     @Override
     public Mecanico buscarPorLegajo(String numeroLegajo) throws SQLException {
@@ -60,6 +112,17 @@ public class MecanicoDAOJdbc implements MecanicoDAO {
         return lista;
     }
 
+    @Override
+    public boolean tieneOrdenesTrabajo(int idMecanico) throws SQLException {
+        String sql = "SELECT 1 FROM ordenes_trabajo WHERE id_mecanico = ? LIMIT 1";
+        try (Connection conn = ConexionBD.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idMecanico);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
+            }
+        }
+    }
+
     private Mecanico mapearMecanico(ResultSet rs) throws SQLException {
         Mecanico m = new Mecanico();
         m.setId(rs.getInt("id"));
@@ -75,5 +138,4 @@ public class MecanicoDAOJdbc implements MecanicoDAO {
         m.setValorHora(rs.getDouble("valor_hora"));
         return m;
     }
-
 }
