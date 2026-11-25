@@ -125,12 +125,6 @@ public class OrdenTrabajoPanel extends javax.swing.JPanel {
 
         jLabel6.setText("Vehículo:");
         jPanelDatos.add(jLabel6);
-
-        jcbVehiculo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbVehiculoActionPerformed(evt);
-            }
-        });
         jPanelDatos.add(jcbVehiculo);
 
         jLabel7.setText("Mecánico:");
@@ -243,10 +237,6 @@ public class OrdenTrabajoPanel extends javax.swing.JPanel {
         limpiarTodo();
     }//GEN-LAST:event_jbLimpiarActionPerformed
 
-    private void jcbVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbVehiculoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jcbVehiculoActionPerformed
-
     private void configurarTablas() {
         modeloDetalles = new DefaultTableModel(
                 new Object[]{"Código", "Repuesto", "Cantidad", "Precio aplicado", "Subtotal"}, 0);
@@ -283,7 +273,9 @@ public class OrdenTrabajoPanel extends javax.swing.JPanel {
             ordenesCargadas = ordenDAO.listarTodos();
             modeloOrdenes.setRowCount(0);
             for (OrdenTrabajo o : ordenesCargadas) {
-                String mecanico = o.getMecanico().getNombre() + " " + o.getMecanico().getApellido();
+                String mecanico = o.getMecanico() != null
+                        ? o.getMecanico().getNombre() + " " + o.getMecanico().getApellido()
+                        : "Sin asignar";
                 modeloOrdenes.addRow(new Object[]{
                     o.getNumero(),
                     o.getFechaIngreso(),
@@ -329,13 +321,26 @@ public class OrdenTrabajoPanel extends javax.swing.JPanel {
             mostrarAviso("La cantidad debe ser mayor a cero.");
             return;
         }
-        if (!repuesto.hayStockSuficiente(cantidad)) {
+        int cantidadAcumulada = 0;
+        DetalleOrden detalleExistente = null;
+        for (DetalleOrden d : ordenActual.getDetalles()) {
+            if (d.getRepuesto() != null && repuesto.equals(d.getRepuesto())) {
+                cantidadAcumulada += d.getCantidad();
+                detalleExistente = d;
+            }
+        }
+        if (!repuesto.hayStockSuficiente(cantidadAcumulada + cantidad)) {
             mostrarAviso("Stock insuficiente de " + repuesto.getDescripcion()
-                    + ". Disponible: " + repuesto.getStockDisponible() + ".");
+                    + ". Disponible: " + repuesto.getStockDisponible()
+                    + ", ya agregado en la orden: " + cantidadAcumulada + ".");
             return;
         }
-        DetalleOrden detalle = new DetalleOrden(repuesto, cantidad, repuesto.getPrecioUnitarioActual());
-        ordenActual.agregarDetalle(detalle);
+        if (detalleExistente != null) {
+            detalleExistente.setCantidad(detalleExistente.getCantidad() + cantidad);
+        } else {
+            DetalleOrden detalle = new DetalleOrden(repuesto, cantidad, repuesto.getPrecioUnitarioActual());
+            ordenActual.agregarDetalle(detalle);
+        }
         jtfCantidad.setText("");
         refrescarTablaDetalles();
     }

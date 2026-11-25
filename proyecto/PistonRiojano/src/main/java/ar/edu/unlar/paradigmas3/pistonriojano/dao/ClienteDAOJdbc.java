@@ -25,14 +25,18 @@ public class ClienteDAOJdbc implements ClienteDAO {
 
     @Override
     public void insertar(Cliente cliente) throws SQLException {
-        String sql = "INSERT INTO clientes (dni, nombre, apellido, telefono, email) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO clientes (dni, nombre, apellido, telefono, email) VALUES (?, ?, ?, ?, ?) RETURNING id";
         try (Connection conn = ConexionBD.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, cliente.getDni());
             ps.setString(2, cliente.getNombre());
             ps.setString(3, cliente.getApellido());
             ps.setString(4, cliente.getTelefono());
             ps.setString(5, cliente.getEmail());
-            ps.executeUpdate();
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    cliente.setId(rs.getInt("id"));
+                }
+            }
         }
     }
 
@@ -68,7 +72,7 @@ public class ClienteDAOJdbc implements ClienteDAO {
                 if (rs.next()) {
                     Cliente cliente = mapearCliente(rs);
                     if (cliente.getId() != null) {
-                        cliente.setVehiculos(buscarVehiculosPorIdCliente(conn, cliente.getId()));
+                        cliente.setVehiculos(buscarVehiculosPorIdCliente(conn, cliente));
                     }
                     return cliente;
                 }
@@ -85,7 +89,7 @@ public class ClienteDAOJdbc implements ClienteDAO {
             while (rs.next()) {
                 Cliente cliente = mapearCliente(rs);
                 if (cliente.getId() != null) {
-                    cliente.setVehiculos(buscarVehiculosPorIdCliente(conn, cliente.getId()));
+                    cliente.setVehiculos(buscarVehiculosPorIdCliente(conn, cliente));
                 }
                 lista.add(cliente);
             }
@@ -106,32 +110,37 @@ public class ClienteDAOJdbc implements ClienteDAO {
         }
     }
 
-    private List<Vehiculo> buscarVehiculosPorIdCliente(Connection conn, int idCliente) throws SQLException {
+    private List<Vehiculo> buscarVehiculosPorIdCliente(Connection conn, Cliente propietario) throws SQLException {
         List<Vehiculo> vehiculos = new ArrayList<>();
-        String sql = "SELECT patente, marca, modelo, anio, tipo_vehiculo, cantidad_puertas, combustible, cilindrada "
+        String sql = "SELECT id, patente, marca, modelo, anio, tipo_vehiculo, cantidad_puertas, combustible, cilindrada "
                 + "FROM vehiculos WHERE id_cliente = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, idCliente);
+            ps.setInt(1, propietario.getId());
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
+                    int idVehiculo = rs.getInt("id");
                     String tipo = rs.getString("tipo_vehiculo");
                     if ("AUTO".equalsIgnoreCase(tipo)) {
                         String combStr = rs.getString("combustible");
                         TipoCombustible combustible = combStr != null ? TipoCombustible.valueOf(combStr.toUpperCase()) : null;
                         vehiculos.add(new Auto(
+                                idVehiculo,
                                 rs.getString("patente"),
                                 rs.getString("marca"),
                                 rs.getString("modelo"),
                                 rs.getInt("anio"),
+                                propietario,
                                 rs.getInt("cantidad_puertas"),
                                 combustible
                         ));
                     } else if ("MOTO".equalsIgnoreCase(tipo)) {
                         vehiculos.add(new Moto(
+                                idVehiculo,
                                 rs.getString("patente"),
                                 rs.getString("marca"),
                                 rs.getString("modelo"),
                                 rs.getInt("anio"),
+                                propietario,
                                 rs.getInt("cilindrada")
                         ));
                     }

@@ -396,10 +396,6 @@ public class MecanicoPanel extends javax.swing.JPanel {
 
         jLabel6.setText("Valor hora");
 
-        txtID.addActionListener(this::txtIDActionPerformed);
-
-        cbEspecialidad.addActionListener(this::cbEspecialidadActionPerformed);
-
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(this::btnGuardarActionPerformed);
 
@@ -511,14 +507,6 @@ public class MecanicoPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIDActionPerformed
-
-    private void cbEspecialidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEspecialidadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbEspecialidadActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:

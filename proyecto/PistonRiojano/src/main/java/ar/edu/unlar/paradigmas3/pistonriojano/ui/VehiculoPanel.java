@@ -80,8 +80,6 @@ public class VehiculoPanel extends javax.swing.JPanel {
 
         jLabelCliente.setText("Cliente:");
         jPanelSuperior.add(jLabelCliente);
-
-        jcbCliente.addActionListener(this::jcbClienteActionPerformed);
         jPanelSuperior.add(jcbCliente);
 
         jLabelVehiculo.setText("Tipo de vehículo:");
@@ -92,44 +90,30 @@ public class VehiculoPanel extends javax.swing.JPanel {
 
         jLabelPatente.setText("Patente:");
         jPanelSuperior.add(jLabelPatente);
-
-        jtfPatente.addActionListener(this::jtfPatenteActionPerformed);
         jPanelSuperior.add(jtfPatente);
 
         jLabelMarca.setText("Marca:");
         jPanelSuperior.add(jLabelMarca);
-
-        jtfMarca.addActionListener(this::jtfMarcaActionPerformed);
         jPanelSuperior.add(jtfMarca);
 
         jLabelModelo.setText("Modelo:");
         jPanelSuperior.add(jLabelModelo);
-
-        jtfModelo.addActionListener(this::jtfModeloActionPerformed);
         jPanelSuperior.add(jtfModelo);
 
         jLabelAnio.setText("Año:");
         jPanelSuperior.add(jLabelAnio);
-
-        jtfAnio.addActionListener(this::jtfAnioActionPerformed);
         jPanelSuperior.add(jtfAnio);
 
         jLabelCantPuertas.setText("Cantidad de puertas:");
         jPanelSuperior.add(jLabelCantPuertas);
-
-        jtfCantPuertas.addActionListener(this::jtfCantPuertasActionPerformed);
         jPanelSuperior.add(jtfCantPuertas);
 
         jLabelCombustible.setText("Tipo de combustible:");
         jPanelSuperior.add(jLabelCombustible);
-
-        jcbCombustible.addActionListener(this::jcbCombustibleActionPerformed);
         jPanelSuperior.add(jcbCombustible);
 
         jLabelCilindrada.setText("Cilindrada:");
         jPanelSuperior.add(jLabelCilindrada);
-
-        jtfCilindrada.addActionListener(this::jtfCilindradaActionPerformed);
         jPanelSuperior.add(jtfCilindrada);
 
         add(jPanelSuperior, java.awt.BorderLayout.NORTH);
@@ -189,31 +173,6 @@ public class VehiculoPanel extends javax.swing.JPanel {
         add(jPanelBotones, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    private void jtfPatenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfPatenteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfPatenteActionPerformed
-
-    private void jtfMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfMarcaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfMarcaActionPerformed
-
-    private void jtfModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfModeloActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfModeloActionPerformed
-
-    private void jtfAnioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfAnioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfAnioActionPerformed
-
-    private void jtfCantPuertasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCantPuertasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfCantPuertasActionPerformed
-
-    private void jtfCilindradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCilindradaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfCilindradaActionPerformed
-
     private void jcbTipoVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTipoVehiculoActionPerformed
         actualizarCamposPorTipo();
     }//GEN-LAST:event_jcbTipoVehiculoActionPerformed
@@ -237,14 +196,6 @@ public class VehiculoPanel extends javax.swing.JPanel {
     private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
         limpiarCampos();
     }//GEN-LAST:event_jbLimpiarActionPerformed
-
-    private void jcbClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbClienteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jcbClienteActionPerformed
-
-    private void jcbCombustibleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbCombustibleActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jcbCombustibleActionPerformed
     
   private void configurarTabla() {
         modeloVehiculos = new DefaultTableModel(
@@ -262,10 +213,24 @@ public class VehiculoPanel extends javax.swing.JPanel {
         jcbCombustible.setModel(new DefaultComboBoxModel<>(TipoCombustible.values()));
     }
   
+  public void refrescarDatos() {
+        cargarClientes();
+        cargarTablaVehiculos();
+    }
+
   private void cargarClientes() {
+        Cliente seleccionado = (Cliente) jcbCliente.getSelectedItem();
         try {
             List<Cliente> clientes = clienteDAO.listarTodos();
             jcbCliente.setModel(new DefaultComboBoxModel<>(clientes.toArray(new Cliente[0])));
+            if (seleccionado != null) {
+                for (Cliente c : clientes) {
+                    if (seleccionado.equals(c)) {
+                        jcbCliente.setSelectedItem(c);
+                        break;
+                    }
+                }
+            }
         } catch (SQLException e) {
             mostrarError("No se pudieron cargar los clientes.", e);
         }
@@ -423,13 +388,19 @@ public class VehiculoPanel extends javax.swing.JPanel {
             return;
         }
         Vehiculo seleccionado = vehiculosCargados.get(fila);
-        int opcion = JOptionPane.showConfirmDialog(this,
-                "¿Seguro que deseás eliminar el vehículo con patente " + seleccionado.getPatente() + "?",
-                "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
-        if (opcion != JOptionPane.YES_OPTION) {
-            return;
-        }
         try {
+            if (vehiculoDAO.tieneOrdenesTrabajo(seleccionado.getPatente())) {
+                JOptionPane.showMessageDialog(this,
+                        "No se puede eliminar el vehículo porque tiene órdenes de trabajo asociadas.",
+                        "Operación no permitida", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            int opcion = JOptionPane.showConfirmDialog(this,
+                    "¿Seguro que deseás eliminar el vehículo con patente " + seleccionado.getPatente() + "?",
+                    "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+            if (opcion != JOptionPane.YES_OPTION) {
+                return;
+            }
             vehiculoDAO.eliminar(seleccionado.getPatente());
             JOptionPane.showMessageDialog(this,
                     "Vehículo eliminado correctamente.",

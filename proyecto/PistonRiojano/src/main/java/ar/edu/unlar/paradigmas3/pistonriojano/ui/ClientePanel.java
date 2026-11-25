@@ -21,6 +21,7 @@ public class ClientePanel extends javax.swing.JPanel {
     private DefaultTableModel modeloTabla;
     private List<Cliente> clientesActuales = new ArrayList<>();
     private Integer idSeleccionado = null;
+    private String dniSeleccionado = null;
 
     /**
      * Creates new form ClientePanel
@@ -170,7 +171,7 @@ public class ClientePanel extends javax.swing.JPanel {
     }
 
     private void eliminarCliente() {
-        if (idSeleccionado == null) {
+        if (idSeleccionado == null || dniSeleccionado == null || dniSeleccionado.trim().isEmpty()) {
             JOptionPane.showMessageDialog(
                     this,
                     "Selecciona un cliente de la tabla para eliminar.",
@@ -180,7 +181,7 @@ public class ClientePanel extends javax.swing.JPanel {
             return;
         }
 
-        String dni = txtDni.getText().trim();
+        String dni = dniSeleccionado;
         try {
             if (clienteDAO.tieneVehiculos(dni)) {
                 JOptionPane.showMessageDialog(
@@ -221,6 +222,7 @@ public class ClientePanel extends javax.swing.JPanel {
         if (fila >= 0 && fila < clientesActuales.size()) {
             Cliente seleccionado = clientesActuales.get(fila);
             idSeleccionado = seleccionado.getId();
+            dniSeleccionado = seleccionado.getDni();
             
             txtID.setText(idSeleccionado != null ? String.valueOf(idSeleccionado) : "");
             txtDni.setText(valorSeguro(seleccionado.getDni()));
@@ -237,6 +239,7 @@ public class ClientePanel extends javax.swing.JPanel {
 
     private void limpiarCampos() {
         idSeleccionado = null;
+        dniSeleccionado = null;
         txtDni.setText("");
         txtID.setText("");
         txtNombre.setText("");
@@ -293,16 +296,6 @@ public class ClientePanel extends javax.swing.JPanel {
 
         jLabel5.setText("mail:");
 
-        txtDni.addActionListener(this::txtDniActionPerformed);
-
-        txtNombre.addActionListener(this::txtNombreActionPerformed);
-
-        txtApellido.addActionListener(this::txtApellidoActionPerformed);
-
-        txtTelefono.addActionListener(this::txtTelefonoActionPerformed);
-
-        txtMail.addActionListener(this::txtMailActionPerformed);
-
         tClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -334,7 +327,6 @@ public class ClientePanel extends javax.swing.JPanel {
         jLabel6.setText("ID");
 
         txtID.setEditable(false);
-        txtID.addActionListener(this::txtIDActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -367,7 +359,7 @@ public class ClientePanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 12, Short.MAX_VALUE)
+                        .addGap(0, 213, Short.MAX_VALUE)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -412,26 +404,6 @@ public class ClientePanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDniActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDniActionPerformed
-
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreActionPerformed
-
-    private void txtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtApellidoActionPerformed
-
-    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTelefonoActionPerformed
-
-    private void txtMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMailActionPerformed
-
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         guardarCliente();
@@ -446,10 +418,6 @@ public class ClientePanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         seleccionarFilaTabla();
     }//GEN-LAST:event_tClientesMouseClicked
-
-    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIDActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

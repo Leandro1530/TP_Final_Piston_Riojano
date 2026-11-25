@@ -27,7 +27,7 @@ public class VehiculoDAOJdbc implements VehiculoDAO {
     @Override
     public void insertar(Vehiculo vehiculo) throws SQLException {
         String sql = "INSERT INTO vehiculos (patente, marca, modelo, anio, id_cliente, tipo_vehiculo, cantidad_puertas, combustible, cilindrada) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id";
         try (Connection conn = ConexionBD.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, vehiculo.getPatente());
             ps.setString(2, vehiculo.getMarca());
@@ -55,7 +55,11 @@ public class VehiculoDAOJdbc implements VehiculoDAO {
                 throw new SQLException("Tipo de vehículo no soportado.");
             }
 
-            ps.executeUpdate();
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    vehiculo.setId(rs.getInt("id"));
+                }
+            }
         }
     }
 
@@ -91,7 +95,9 @@ public class VehiculoDAOJdbc implements VehiculoDAO {
             }
 
             ps.setString(9, vehiculo.getPatente());
-            ps.executeUpdate();
+            if (ps.executeUpdate() == 0) {
+                throw new SQLException("No existe un vehículo registrado con la patente " + vehiculo.getPatente() + ".");
+            }
         }
     }
 
@@ -159,6 +165,19 @@ public class VehiculoDAOJdbc implements VehiculoDAO {
             }
         }
         return lista;
+    }
+
+    @Override
+    public boolean tieneOrdenesTrabajo(String patente) throws SQLException {
+        String sql = "SELECT 1 FROM ordenes_trabajo o "
+                + "INNER JOIN vehiculos v ON o.id_vehiculo = v.id "
+                + "WHERE v.patente = ? LIMIT 1";
+        try (Connection conn = ConexionBD.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, patente);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
+            }
+        }
     }
 
     private Vehiculo mapearVehiculo(ResultSet rs) throws SQLException {

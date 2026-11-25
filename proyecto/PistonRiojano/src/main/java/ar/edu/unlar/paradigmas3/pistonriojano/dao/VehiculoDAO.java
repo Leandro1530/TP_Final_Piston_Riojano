@@ -24,4 +24,6 @@ public interface VehiculoDAO {
 
     List<Vehiculo> listarTodos() throws SQLException;
 
+    boolean tieneOrdenesTrabajo(String patente) throws SQLException;
+
 }

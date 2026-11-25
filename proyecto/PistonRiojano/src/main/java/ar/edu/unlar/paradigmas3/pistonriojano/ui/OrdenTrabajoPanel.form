@@ -3,97 +3,88 @@
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <Properties>
     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[800, 600]"/>
+      <Dimension value="[800, 600]" />
     </Property>
   </Properties>
   <AuxValues>
-    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
-    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
-    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
-    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
-    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
-    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
-    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
-    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
-    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,-50,0,0,2,-111"/>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0" />
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false" />
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true" />
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false" />
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false" />
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1" />
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0" />
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false" />
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2" />
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,-50,0,0,2,-111" />
   </AuxValues>
-
-  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
+  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" />
   <SubComponents>
     <Container class="javax.swing.JPanel" name="jPanelDatos">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-          <BorderConstraints direction="North"/>
+          <BorderConstraints direction="North" />
         </Constraint>
       </Constraints>
-
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
-        <Property name="columns" type="int" value="4"/>
-        <Property name="horizontalGap" type="int" value="6"/>
-        <Property name="rows" type="int" value="0"/>
-        <Property name="verticalGap" type="int" value="4"/>
+        <Property name="columns" type="int" value="4" />
+        <Property name="horizontalGap" type="int" value="6" />
+        <Property name="rows" type="int" value="0" />
+        <Property name="verticalGap" type="int" value="4" />
       </Layout>
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="N&#xb0; de orden:"/>
+            <Property name="text" type="java.lang.String" value="N° de orden:" />
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jtfNumero">
-        </Component>
+        <Component class="javax.swing.JTextField" name="jtfNumero"></Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Fecha ingreso (aaaa-mm-dd):"/>
+            <Property name="text" type="java.lang.String" value="Fecha ingreso (aaaa-mm-dd):" />
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jtfFechaIngreso">
-        </Component>
+        <Component class="javax.swing.JTextField" name="jtfFechaIngreso"></Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Descripci&#xf3;n del problema:"/>
+            <Property name="text" type="java.lang.String" value="Descripción del problema:" />
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jtfDescripcion">
-        </Component>
+        <Component class="javax.swing.JTextField" name="jtfDescripcion"></Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Horas de mano de obra:"/>
+            <Property name="text" type="java.lang.String" value="Horas de mano de obra:" />
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jtfHorasManoObra">
-        </Component>
+        <Component class="javax.swing.JTextField" name="jtfHorasManoObra"></Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Estado:"/>
+            <Property name="text" type="java.lang.String" value="Estado:" />
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="jcbEstado">
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;ar.edu.unlar.paradigmas3.pistonriojano.modelo.EstadoOrden&gt;"/>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;ar.edu.unlar.paradigmas3.pistonriojano.modelo.EstadoOrden&gt;" />
           </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Veh&#xed;culo:"/>
+            <Property name="text" type="java.lang.String" value="Vehículo:" />
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="jcbVehiculo">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbVehiculoActionPerformed"/>
-          </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;ar.edu.unlar.paradigmas3.pistonriojano.modelo.Vehiculo&gt;"/>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;ar.edu.unlar.paradigmas3.pistonriojano.modelo.Vehiculo&gt;" />
           </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Mec&#xe1;nico:"/>
+            <Property name="text" type="java.lang.String" value="Mecánico:" />
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="jcbMecanico">
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;ar.edu.unlar.paradigmas3.pistonriojano.modelo.Mecanico&gt;"/>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;ar.edu.unlar.paradigmas3.pistonriojano.modelo.Mecanico&gt;" />
           </AuxValues>
         </Component>
       </SubComponents>
@@ -101,73 +92,69 @@
     <Container class="javax.swing.JPanel" name="jPanelCentro">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-          <BorderConstraints direction="Center"/>
+          <BorderConstraints direction="Center" />
         </Constraint>
       </Constraints>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" />
       <SubComponents>
         <Container class="javax.swing.JPanel" name="jPanelRepuesto">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-              <BorderConstraints direction="North"/>
+              <BorderConstraints direction="North" />
             </Constraint>
           </Constraints>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout" />
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel8">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Repuesto:"/>
+                <Property name="text" type="java.lang.String" value="Repuesto:" />
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="jcbRepuesto">
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;ar.edu.unlar.paradigmas3.pistonriojano.modelo.Repuesto&gt;"/>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;ar.edu.unlar.paradigmas3.pistonriojano.modelo.Repuesto&gt;" />
               </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel9">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Cantidad:"/>
+                <Property name="text" type="java.lang.String" value="Cantidad:" />
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jtfCantidad">
               <Properties>
-                <Property name="columns" type="int" value="5"/>
+                <Property name="columns" type="int" value="5" />
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jbAgregarRepuesto">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Agregar repuesto"/>
+                <Property name="text" type="java.lang.String" value="Agregar repuesto" />
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbAgregarRepuestoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbAgregarRepuestoActionPerformed" />
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jbQuitarRepuesto">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Quitar repuesto"/>
+                <Property name="text" type="java.lang.String" value="Quitar repuesto" />
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbQuitarRepuestoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbQuitarRepuestoActionPerformed" />
               </Events>
             </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
           <AuxValues>
-            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true" />
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-              <BorderConstraints direction="Center"/>
+              <BorderConstraints direction="Center" />
             </Constraint>
           </Constraints>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout" />
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jtDetalles">
-            </Component>
+            <Component class="javax.swing.JTable" name="jtDetalles"></Component>
           </SubComponents>
         </Container>
       </SubComponents>
@@ -175,51 +162,49 @@
     <Container class="javax.swing.JPanel" name="jPanelInferior">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-          <BorderConstraints direction="South"/>
+          <BorderConstraints direction="South" />
         </Constraint>
       </Constraints>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" />
       <SubComponents>
         <Container class="javax.swing.JPanel" name="jPanelBotones">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-              <BorderConstraints direction="North"/>
+              <BorderConstraints direction="North" />
             </Constraint>
           </Constraints>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout" />
           <SubComponents>
             <Component class="javax.swing.JButton" name="jbGuardar">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Guardar orden"/>
+                <Property name="text" type="java.lang.String" value="Guardar orden" />
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbGuardarActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbGuardarActionPerformed" />
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jbActualizarEstado">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Actualizar estado"/>
+                <Property name="text" type="java.lang.String" value="Actualizar estado" />
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbActualizarEstadoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbActualizarEstadoActionPerformed" />
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jbEliminar">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Eliminar orden"/>
+                <Property name="text" type="java.lang.String" value="Eliminar orden" />
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbEliminarActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbEliminarActionPerformed" />
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jbLimpiar">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Limpiar"/>
+                <Property name="text" type="java.lang.String" value="Limpiar" />
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbLimpiarActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbLimpiarActionPerformed" />
               </Events>
             </Component>
           </SubComponents>
@@ -227,22 +212,20 @@
         <Container class="javax.swing.JScrollPane" name="jScrollPane2">
           <Properties>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[100, 150]"/>
+              <Dimension value="[100, 150]" />
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true" />
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-              <BorderConstraints direction="Center"/>
+              <BorderConstraints direction="Center" />
             </Constraint>
           </Constraints>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout" />
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jtOrdenes">
-            </Component>
+            <Component class="javax.swing.JTable" name="jtOrdenes"></Component>
           </SubComponents>
         </Container>
       </SubComponents>

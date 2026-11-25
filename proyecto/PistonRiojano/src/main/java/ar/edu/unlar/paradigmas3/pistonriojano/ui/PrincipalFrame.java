@@ -148,6 +148,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
         if (vehiculoPanel == null) {
             vehiculoPanel = new VehiculoPanel();
         }
+        vehiculoPanel.refrescarDatos();
         mostrarPanel(vehiculoPanel);
     }
 

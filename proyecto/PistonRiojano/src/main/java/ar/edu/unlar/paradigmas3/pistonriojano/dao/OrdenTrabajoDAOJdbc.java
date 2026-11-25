@@ -24,14 +24,16 @@ public class OrdenTrabajoDAOJdbc implements OrdenTrabajoDAO {
 
     private static final String SQL_SELECT_ORDEN =
             "SELECT o.id, o.numero, o.fecha_ingreso, o.descripcion_problema, o.estado, o.horas_mano_obra, "
-            + "v.patente, v.marca, v.modelo, v.anio, v.tipo_vehiculo, v.cantidad_puertas, v.combustible, v.cilindrada, "
+            + "v.id AS v_id, v.patente, v.marca, v.modelo, v.anio, v.tipo_vehiculo, v.cantidad_puertas, v.combustible, v.cilindrada, "
+            + "c.id AS c_id, c.dni AS c_dni, c.nombre AS c_nombre, c.apellido AS c_apellido, c.telefono AS c_telefono, c.email AS c_email, "
             + "m.id AS m_id, m.legajo, m.nombre AS m_nombre, m.apellido AS m_apellido, m.especialidad, m.valor_hora "
             + "FROM ordenes_trabajo o "
             + "JOIN vehiculos v ON v.id = o.id_vehiculo "
+            + "LEFT JOIN clientes c ON c.id = v.id_cliente "
             + "JOIN mecanicos m ON m.id = o.id_mecanico ";
 
     private static final String SQL_SELECT_DETALLES =
-            "SELECT d.id, d.cantidad, d.precio_aplicado, r.codigo, r.descripcion, r.precio_unitario, r.stock "
+            "SELECT d.id, d.cantidad, d.precio_aplicado, r.id AS r_id, r.codigo, r.descripcion, r.precio_unitario, r.stock "
             + "FROM detalles_orden d JOIN repuestos r ON r.id = d.id_repuesto "
             + "WHERE d.id_orden_trabajo = ? ORDER BY d.id";
 
@@ -62,6 +64,9 @@ public class OrdenTrabajoDAOJdbc implements OrdenTrabajoDAO {
 
     @Override
     public void actualizar(OrdenTrabajo orden) throws SQLException {
+        if (orden.getEstado() == null) {
+            throw new SQLException("La orden no tiene estado asignado.");
+        }
         String sql = "UPDATE ordenes_trabajo SET numero = ?, fecha_ingreso = COALESCE(?, fecha_ingreso), "
                 + "descripcion_problema = ?, estado = ?, horas_mano_obra = ?, id_vehiculo = ?, id_mecanico = ? "
                 + "WHERE id = ?";
@@ -254,16 +259,28 @@ public class OrdenTrabajoDAOJdbc implements OrdenTrabajoDAO {
     }
 
     private Vehiculo mapearVehiculo(ResultSet rs) throws SQLException {
+        Cliente propietario = null;
+        int idCliente = rs.getInt("c_id");
+        if (!rs.wasNull()) {
+            propietario = new Cliente();
+            propietario.setId(idCliente);
+            propietario.setDni(rs.getString("c_dni"));
+            propietario.setNombre(rs.getString("c_nombre"));
+            propietario.setApellido(rs.getString("c_apellido"));
+            propietario.setTelefono(rs.getString("c_telefono"));
+            propietario.setEmail(rs.getString("c_email"));
+        }
+        int idVehiculo = rs.getInt("v_id");
         String patente = rs.getString("patente");
         String marca = rs.getString("marca");
         String modelo = rs.getString("modelo");
         int anio = rs.getInt("anio");
         if ("MOTO".equals(rs.getString("tipo_vehiculo"))) {
-            return new Moto(patente, marca, modelo, anio, rs.getInt("cilindrada"));
+            return new Moto(idVehiculo, patente, marca, modelo, anio, propietario, rs.getInt("cilindrada"));
         }
         String combustible = rs.getString("combustible");
         TipoCombustible tipo = combustible == null ? null : TipoCombustible.valueOf(combustible);
-        return new Auto(patente, marca, modelo, anio, rs.getInt("cantidad_puertas"), tipo);
+        return new Auto(idVehiculo, patente, marca, modelo, anio, propietario, rs.getInt("cantidad_puertas"), tipo);
     }
 
     private void cargarDetalles(Connection cn, OrdenTrabajo orden) throws SQLException {
@@ -272,6 +289,7 @@ public class OrdenTrabajoDAOJdbc implements OrdenTrabajoDAO {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Repuesto repuesto = new Repuesto(
+                            rs.getInt("r_id"),
                             rs.getString("codigo"),
                             rs.getString("descripcion"),
                             rs.getDouble("precio_unitario"),

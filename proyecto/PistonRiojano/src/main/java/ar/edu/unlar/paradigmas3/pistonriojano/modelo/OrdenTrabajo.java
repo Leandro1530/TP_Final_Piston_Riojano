@@ -152,6 +152,9 @@ public class OrdenTrabajo {
 
     // Polimorfismo: el coeficiente depende del tipo concreto de Vehiculo (Auto o Moto)
     public double calcularManoObra() {
+        if (this.mecanico == null || this.vehiculo == null) {
+            return 0.0;
+        }
         return this.horasManoObra * this.mecanico.getValorHora() * this.vehiculo.calcularCoeficiente();
     }
 

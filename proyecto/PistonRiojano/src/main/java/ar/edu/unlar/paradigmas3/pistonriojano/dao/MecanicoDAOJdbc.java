@@ -26,14 +26,18 @@ public class MecanicoDAOJdbc implements MecanicoDAO {
     @Override
     public void insertar(Mecanico mecanico) throws SQLException {
         String sql = "INSERT INTO mecanicos (legajo, nombre, apellido, especialidad, valor_hora) "
-                + "VALUES (?, ?, ?, ?, ?)";
+                + "VALUES (?, ?, ?, ?, ?) RETURNING id";
         try (Connection conn = ConexionBD.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, mecanico.getLegajo());
             ps.setString(2, mecanico.getNombre());
             ps.setString(3, mecanico.getApellido());
             ps.setString(4, mecanico.getEspecialidad() != null ? mecanico.getEspecialidad().name() : null);
             ps.setDouble(5, mecanico.getValorHora());
-            ps.executeUpdate();
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    mecanico.setId(rs.getInt("id"));
+                }
+            }
         }
     }
 
