@@ -8,7 +8,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>24</maven.compiler.release>
-        <exec.mainClass>ar.edu.unlar.paradigmas3.pistonriojano.main</exec.mainClass>
+        <exec.mainClass>ar.edu.unlar.paradigmas3.pistonriojano.ui.PrincipalFrame</exec.mainClass>
     </properties>
     <dependencies>
         <!-- Driver JDBC oficial para PostgreSQL -->

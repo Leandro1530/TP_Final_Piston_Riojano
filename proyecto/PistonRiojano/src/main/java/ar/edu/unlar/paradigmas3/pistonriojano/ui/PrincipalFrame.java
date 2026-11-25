@@ -5,6 +5,7 @@
 package ar.edu.unlar.paradigmas3.pistonriojano.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -16,13 +17,18 @@ public class PrincipalFrame extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PrincipalFrame.class.getName());
 
+    private OrdenTrabajoPanel ordenTrabajoPanel;
+    private VehiculoPanel vehiculoPanel;
+    private RepuestoPanel repuestoPanel;
+    private ClientePanel clientePanel;
+
     /**
      * Creates new form PrincipalFrame
      */
     public PrincipalFrame() {
         initComponents();
-        configurarVentana();
         mostrarOrdenes();
+        configurarVentana();
     }
 
     /**
@@ -119,6 +125,8 @@ public class PrincipalFrame extends javax.swing.JFrame {
 
     private void configurarVentana() {
         setTitle("Pistón Riojano - Menú Principal");
+        setSize(950, 650);
+        setMinimumSize(new Dimension(800, 600));
         setLocationRelativeTo(null);
     }
 
@@ -130,23 +138,30 @@ public class PrincipalFrame extends javax.swing.JFrame {
     }
 
     private void mostrarOrdenes() {
-        mostrarPanel(new OrdenTrabajoPanel());
+        if (ordenTrabajoPanel == null) {
+            ordenTrabajoPanel = new OrdenTrabajoPanel();
+        }
+        mostrarPanel(ordenTrabajoPanel);
     }
 
     private void mostrarVehiculos() {
-        // Cuando Gustavo agregue VehiculoPanel al paquete ui, reemplazar por:
-        // mostrarPanel(new VehiculoPanel());
-        mostrarModuloPendiente("Vehículos", "Gustavo");
+        if (vehiculoPanel == null) {
+            vehiculoPanel = new VehiculoPanel();
+        }
+        mostrarPanel(vehiculoPanel);
     }
 
     private void mostrarRepuestos() {
-        // Cuando Gustavo agregue RepuestoPanel al paquete ui, reemplazar por:
-        // mostrarPanel(new RepuestoPanel());
-        mostrarModuloPendiente("Repuestos", "Gustavo");
+        if (repuestoPanel == null) {
+            repuestoPanel = new RepuestoPanel();
+        }
+        mostrarPanel(repuestoPanel);
     }
 
     private void mostrarClientes() {
-        ClientePanel clientePanel = new ClientePanel();
+        if (clientePanel == null) {
+            clientePanel = new ClientePanel();
+        }
         mostrarPanel(clientePanel);
     }
 
