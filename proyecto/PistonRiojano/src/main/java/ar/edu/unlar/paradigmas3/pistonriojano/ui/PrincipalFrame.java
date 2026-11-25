@@ -151,9 +151,8 @@ public class PrincipalFrame extends javax.swing.JFrame {
     }
 
     private void mostrarMecanicos() {
-        // Cuando Fabricio / River agregue MecanicoPanel al paquete ui, reemplazar por:
-        // mostrarPanel(new MecanicoPanel());
-        mostrarModuloPendiente("Mecánicos", "Fabricio / River");
+        MecanicoPanel mecanicoPanel = new MecanicoPanel();
+        mostrarPanel(mecanicoPanel);
     }
 
     private void mostrarModuloPendiente(String nombreModulo, String responsable) {
