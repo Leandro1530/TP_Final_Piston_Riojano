@@ -146,9 +146,8 @@ public class PrincipalFrame extends javax.swing.JFrame {
     }
 
     private void mostrarClientes() {
-        // Cuando Fabricio / River agregue ClientePanel al paquete ui, reemplazar por:
-        // mostrarPanel(new ClientePanel());
-        mostrarModuloPendiente("Clientes", "Fabricio / River");
+        ClientePanel clientePanel = new ClientePanel();
+        mostrarPanel(clientePanel);
     }
 
     private void mostrarMecanicos() {
