@@ -253,16 +253,48 @@ public class OrdenTrabajoPanel extends javax.swing.JPanel {
         jcbEstado.setSelectedItem(EstadoOrden.PENDIENTE);
     }
 
+    public void refrescarDatos() {
+        cargarCombos();
+        cargarTablaOrdenes();
+    }
+
     private void cargarCombos() {
+        Vehiculo vehiculoSeleccionado = (Vehiculo) jcbVehiculo.getSelectedItem();
+        Mecanico mecanicoSeleccionado = (Mecanico) jcbMecanico.getSelectedItem();
+        Repuesto repuestoSeleccionado = (Repuesto) jcbRepuesto.getSelectedItem();
         try {
             List<Vehiculo> vehiculos = vehiculoDAO.listarTodos();
             jcbVehiculo.setModel(new DefaultComboBoxModel<>(vehiculos.toArray(new Vehiculo[0])));
+            if (vehiculoSeleccionado != null) {
+                for (Vehiculo v : vehiculos) {
+                    if (vehiculoSeleccionado.equals(v)) {
+                        jcbVehiculo.setSelectedItem(v);
+                        break;
+                    }
+                }
+            }
 
             List<Mecanico> mecanicos = mecanicoDAO.listarTodos();
             jcbMecanico.setModel(new DefaultComboBoxModel<>(mecanicos.toArray(new Mecanico[0])));
+            if (mecanicoSeleccionado != null) {
+                for (Mecanico m : mecanicos) {
+                    if (mecanicoSeleccionado.equals(m)) {
+                        jcbMecanico.setSelectedItem(m);
+                        break;
+                    }
+                }
+            }
 
             List<Repuesto> repuestos = repuestoDAO.listarTodos();
             jcbRepuesto.setModel(new DefaultComboBoxModel<>(repuestos.toArray(new Repuesto[0])));
+            if (repuestoSeleccionado != null) {
+                for (Repuesto r : repuestos) {
+                    if (repuestoSeleccionado.equals(r)) {
+                        jcbRepuesto.setSelectedItem(r);
+                        break;
+                    }
+                }
+            }
         } catch (SQLException e) {
             mostrarError("No se pudieron cargar los datos de la base.", e);
         }

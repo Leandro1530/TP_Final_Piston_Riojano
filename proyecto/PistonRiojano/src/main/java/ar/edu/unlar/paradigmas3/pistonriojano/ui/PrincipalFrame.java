@@ -141,6 +141,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
         if (ordenTrabajoPanel == null) {
             ordenTrabajoPanel = new OrdenTrabajoPanel();
         }
+        ordenTrabajoPanel.refrescarDatos();
         mostrarPanel(ordenTrabajoPanel);
     }
 
@@ -156,6 +157,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
         if (repuestoPanel == null) {
             repuestoPanel = new RepuestoPanel();
         }
+        repuestoPanel.refrescarDatos();
         mostrarPanel(repuestoPanel);
     }
 
@@ -163,6 +165,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
         if (clientePanel == null) {
             clientePanel = new ClientePanel();
         }
+        clientePanel.refrescarDatos();
         mostrarPanel(clientePanel);
     }
 

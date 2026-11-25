@@ -54,6 +54,10 @@ public class ClientePanel extends javax.swing.JPanel {
         btnLimpiar.addActionListener(evt -> limpiarCampos());
     }
 
+    public void refrescarDatos() {
+        cargarTablaClientes();
+    }
+
     private void cargarTablaClientes() {
         modeloTabla.setRowCount(0);
         clientesActuales.clear();

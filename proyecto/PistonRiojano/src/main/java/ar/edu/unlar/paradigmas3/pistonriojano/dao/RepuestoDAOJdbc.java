@@ -22,13 +22,17 @@ public class RepuestoDAOJdbc implements RepuestoDAO {
 
     @Override
     public void insertar(Repuesto repuesto) throws SQLException {
-        String sql = "INSERT INTO repuestos (codigo, descripcion, precio_unitario, stock) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO repuestos (codigo, descripcion, precio_unitario, stock) VALUES (?, ?, ?, ?) RETURNING id";
         try (Connection conn = ConexionBD.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, repuesto.getCodigo());
             ps.setString(2, repuesto.getDescripcion());
             ps.setBigDecimal(3, BigDecimal.valueOf(repuesto.getPrecioUnitarioActual()));
             ps.setInt(4, repuesto.getStockDisponible());
-            ps.executeUpdate();
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    repuesto.setId(rs.getInt("id"));
+                }
+            }
         }
     }
 

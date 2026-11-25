@@ -218,6 +218,14 @@ public class RepuestoPanel extends javax.swing.JPanel {
         });
     }
     
+    public void refrescarDatos() {
+        if (jtfBuscarCodigo.getText().trim().isEmpty()) {
+            cargarTablaRepuestos();
+        } else {
+            buscarPorCodigo();
+        }
+    }
+
     private void cargarTablaRepuestos() {
         try {
             repuestosCargados = repuestoDAO.listarTodos();
