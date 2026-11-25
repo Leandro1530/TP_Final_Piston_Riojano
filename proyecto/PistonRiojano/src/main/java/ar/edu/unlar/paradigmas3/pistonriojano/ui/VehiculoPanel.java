@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package ar.edu.unlar.paradigmas3.pistonriojano.ui;
 
@@ -31,7 +31,7 @@ public class VehiculoPanel extends javax.swing.JPanel {
 
     private List<Vehiculo> vehiculosCargados = new ArrayList<>();
     private DefaultTableModel modeloVehiculos;
-
+    
     public VehiculoPanel() {
         initComponents();
         configurarTabla();
@@ -42,14 +42,13 @@ public class VehiculoPanel extends javax.swing.JPanel {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanelSuperior = new javax.swing.JPanel();
-        jPanelFormulario = new javax.swing.JPanel();
         jLabelCliente = new javax.swing.JLabel();
         jcbCliente = new javax.swing.JComboBox<>();
-        jLabelTipo = new javax.swing.JLabel();
+        jLabelVehiculo = new javax.swing.JLabel();
         jcbTipoVehiculo = new javax.swing.JComboBox<>();
         jLabelPatente = new javax.swing.JLabel();
         jtfPatente = new javax.swing.JTextField();
@@ -59,146 +58,195 @@ public class VehiculoPanel extends javax.swing.JPanel {
         jtfModelo = new javax.swing.JTextField();
         jLabelAnio = new javax.swing.JLabel();
         jtfAnio = new javax.swing.JTextField();
-        jLabelPuertas = new javax.swing.JLabel();
-        jtfCantidadPuertas = new javax.swing.JTextField();
+        jLabelCantPuertas = new javax.swing.JLabel();
+        jtfCantPuertas = new javax.swing.JTextField();
         jLabelCombustible = new javax.swing.JLabel();
         jcbCombustible = new javax.swing.JComboBox<>();
         jLabelCilindrada = new javax.swing.JLabel();
         jtfCilindrada = new javax.swing.JTextField();
+        jPanelCentro = new javax.swing.JPanel();
+        jScrollPane = new javax.swing.JScrollPane();
+        jtVehiculos = new javax.swing.JTable();
         jPanelBotones = new javax.swing.JPanel();
         jbGuardar = new javax.swing.JButton();
         jbEliminar = new javax.swing.JButton();
         jbFiltrarCliente = new javax.swing.JButton();
         jbVerTodos = new javax.swing.JButton();
         jbLimpiar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtVehiculos = new javax.swing.JTable();
 
-        setPreferredSize(new java.awt.Dimension(800, 600));
         setLayout(new java.awt.BorderLayout());
 
-        jPanelSuperior.setLayout(new java.awt.BorderLayout());
-
-        jPanelFormulario.setLayout(new java.awt.GridLayout(0, 4, 6, 4));
+        jPanelSuperior.setLayout(new java.awt.GridLayout(0, 4, 6, 4));
 
         jLabelCliente.setText("Cliente:");
-        jPanelFormulario.add(jLabelCliente);
-        jPanelFormulario.add(jcbCliente);
+        jPanelSuperior.add(jLabelCliente);
 
-        jLabelTipo.setText("Tipo de vehículo:");
-        jPanelFormulario.add(jLabelTipo);
+        jcbCliente.addActionListener(this::jcbClienteActionPerformed);
+        jPanelSuperior.add(jcbCliente);
 
-        jcbTipoVehiculo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbTipoVehiculoActionPerformed(evt);
-            }
-        });
-        jPanelFormulario.add(jcbTipoVehiculo);
+        jLabelVehiculo.setText("Tipo de vehículo:");
+        jPanelSuperior.add(jLabelVehiculo);
+
+        jcbTipoVehiculo.addActionListener(this::jcbTipoVehiculoActionPerformed);
+        jPanelSuperior.add(jcbTipoVehiculo);
 
         jLabelPatente.setText("Patente:");
-        jPanelFormulario.add(jLabelPatente);
-        jPanelFormulario.add(jtfPatente);
+        jPanelSuperior.add(jLabelPatente);
+
+        jtfPatente.addActionListener(this::jtfPatenteActionPerformed);
+        jPanelSuperior.add(jtfPatente);
 
         jLabelMarca.setText("Marca:");
-        jPanelFormulario.add(jLabelMarca);
-        jPanelFormulario.add(jtfMarca);
+        jPanelSuperior.add(jLabelMarca);
+
+        jtfMarca.addActionListener(this::jtfMarcaActionPerformed);
+        jPanelSuperior.add(jtfMarca);
 
         jLabelModelo.setText("Modelo:");
-        jPanelFormulario.add(jLabelModelo);
-        jPanelFormulario.add(jtfModelo);
+        jPanelSuperior.add(jLabelModelo);
+
+        jtfModelo.addActionListener(this::jtfModeloActionPerformed);
+        jPanelSuperior.add(jtfModelo);
 
         jLabelAnio.setText("Año:");
-        jPanelFormulario.add(jLabelAnio);
-        jPanelFormulario.add(jtfAnio);
+        jPanelSuperior.add(jLabelAnio);
 
-        jLabelPuertas.setText("Cantidad de puertas:");
-        jPanelFormulario.add(jLabelPuertas);
-        jPanelFormulario.add(jtfCantidadPuertas);
+        jtfAnio.addActionListener(this::jtfAnioActionPerformed);
+        jPanelSuperior.add(jtfAnio);
+
+        jLabelCantPuertas.setText("Cantidad de puertas:");
+        jPanelSuperior.add(jLabelCantPuertas);
+
+        jtfCantPuertas.addActionListener(this::jtfCantPuertasActionPerformed);
+        jPanelSuperior.add(jtfCantPuertas);
 
         jLabelCombustible.setText("Tipo de combustible:");
-        jPanelFormulario.add(jLabelCombustible);
-        jPanelFormulario.add(jcbCombustible);
+        jPanelSuperior.add(jLabelCombustible);
 
-        jLabelCilindrada.setText("Cilindrada (cc):");
-        jPanelFormulario.add(jLabelCilindrada);
-        jPanelFormulario.add(jtfCilindrada);
+        jcbCombustible.addActionListener(this::jcbCombustibleActionPerformed);
+        jPanelSuperior.add(jcbCombustible);
 
-        jPanelSuperior.add(jPanelFormulario, java.awt.BorderLayout.CENTER);
+        jLabelCilindrada.setText("Cilindrada:");
+        jPanelSuperior.add(jLabelCilindrada);
 
-        jbGuardar.setText("Registrar vehículo");
-        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbGuardarActionPerformed(evt);
-            }
-        });
-        jPanelBotones.add(jbGuardar);
-
-        jbEliminar.setText("Eliminar seleccionado");
-        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbEliminarActionPerformed(evt);
-            }
-        });
-        jPanelBotones.add(jbEliminar);
-
-        jbFiltrarCliente.setText("Listar del cliente");
-        jbFiltrarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbFiltrarClienteActionPerformed(evt);
-            }
-        });
-        jPanelBotones.add(jbFiltrarCliente);
-
-        jbVerTodos.setText("Ver todos");
-        jbVerTodos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbVerTodosActionPerformed(evt);
-            }
-        });
-        jPanelBotones.add(jbVerTodos);
-
-        jbLimpiar.setText("Limpiar");
-        jbLimpiar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbLimpiarActionPerformed(evt);
-            }
-        });
-        jPanelBotones.add(jbLimpiar);
-
-        jPanelSuperior.add(jPanelBotones, java.awt.BorderLayout.SOUTH);
+        jtfCilindrada.addActionListener(this::jtfCilindradaActionPerformed);
+        jPanelSuperior.add(jtfCilindrada);
 
         add(jPanelSuperior, java.awt.BorderLayout.NORTH);
 
-        jScrollPane1.setViewportView(jtVehiculos);
+        jtVehiculos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane.setViewportView(jtVehiculos);
 
-        add(jScrollPane1, java.awt.BorderLayout.CENTER);
-    }// </editor-fold>
+        javax.swing.GroupLayout jPanelCentroLayout = new javax.swing.GroupLayout(jPanelCentro);
+        jPanelCentro.setLayout(jPanelCentroLayout);
+        jPanelCentroLayout.setHorizontalGroup(
+            jPanelCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCentroLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanelCentroLayout.setVerticalGroup(
+            jPanelCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelCentroLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
-    private void jcbTipoVehiculoActionPerformed(java.awt.event.ActionEvent evt) {
+        add(jPanelCentro, java.awt.BorderLayout.CENTER);
+
+        jbGuardar.setText("Registrar vehículo");
+        jbGuardar.addActionListener(this::jbGuardarActionPerformed);
+        jPanelBotones.add(jbGuardar);
+
+        jbEliminar.setText("Eliminar seleccionado");
+        jbEliminar.addActionListener(this::jbEliminarActionPerformed);
+        jPanelBotones.add(jbEliminar);
+
+        jbFiltrarCliente.setText("Listar del cliente");
+        jbFiltrarCliente.addActionListener(this::jbFiltrarClienteActionPerformed);
+        jPanelBotones.add(jbFiltrarCliente);
+
+        jbVerTodos.setText("Ver todos");
+        jbVerTodos.addActionListener(this::jbVerTodosActionPerformed);
+        jPanelBotones.add(jbVerTodos);
+
+        jbLimpiar.setText("Limpiar");
+        jbLimpiar.addActionListener(this::jbLimpiarActionPerformed);
+        jPanelBotones.add(jbLimpiar);
+
+        add(jPanelBotones, java.awt.BorderLayout.SOUTH);
+    }// </editor-fold>//GEN-END:initComponents
+
+    
+    private void jtfPatenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfPatenteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfPatenteActionPerformed
+
+    private void jtfMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfMarcaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfMarcaActionPerformed
+
+    private void jtfModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfModeloActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfModeloActionPerformed
+
+    private void jtfAnioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfAnioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfAnioActionPerformed
+
+    private void jtfCantPuertasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCantPuertasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfCantPuertasActionPerformed
+
+    private void jtfCilindradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCilindradaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfCilindradaActionPerformed
+
+    private void jcbTipoVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTipoVehiculoActionPerformed
         actualizarCamposPorTipo();
-    }
+    }//GEN-LAST:event_jcbTipoVehiculoActionPerformed
 
-    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {
+    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         guardarVehiculo();
-    }
+    }//GEN-LAST:event_jbGuardarActionPerformed
 
-    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {
+    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         eliminarVehiculo();
-    }
+    }//GEN-LAST:event_jbEliminarActionPerformed
 
-    private void jbFiltrarClienteActionPerformed(java.awt.event.ActionEvent evt) {
+    private void jbFiltrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFiltrarClienteActionPerformed
         listarPorClienteSeleccionado();
-    }
+    }//GEN-LAST:event_jbFiltrarClienteActionPerformed
 
-    private void jbVerTodosActionPerformed(java.awt.event.ActionEvent evt) {
+    private void jbVerTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVerTodosActionPerformed
         cargarTablaVehiculos();
-    }
+    }//GEN-LAST:event_jbVerTodosActionPerformed
 
-    private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {
+    private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
         limpiarCampos();
-    }
+    }//GEN-LAST:event_jbLimpiarActionPerformed
 
-    private void configurarTabla() {
+    private void jcbClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbClienteActionPerformed
+
+    private void jcbCombustibleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbCombustibleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbCombustibleActionPerformed
+    
+  private void configurarTabla() {
         modeloVehiculos = new DefaultTableModel(
                 new Object[]{"Patente", "Tipo", "Marca", "Modelo", "Año", "Detalle específico", "Propietario"}, 0) {
             @Override
@@ -208,13 +256,13 @@ public class VehiculoPanel extends javax.swing.JPanel {
         };
         jtVehiculos.setModel(modeloVehiculos);
     }
-
-    private void configurarCombos() {
+  
+  private void configurarCombos() {
         jcbTipoVehiculo.setModel(new DefaultComboBoxModel<>(new String[]{"Auto", "Moto"}));
         jcbCombustible.setModel(new DefaultComboBoxModel<>(TipoCombustible.values()));
     }
-
-    private void cargarClientes() {
+  
+  private void cargarClientes() {
         try {
             List<Cliente> clientes = clienteDAO.listarTodos();
             jcbCliente.setModel(new DefaultComboBoxModel<>(clientes.toArray(new Cliente[0])));
@@ -222,20 +270,20 @@ public class VehiculoPanel extends javax.swing.JPanel {
             mostrarError("No se pudieron cargar los clientes.", e);
         }
     }
-
-    private void actualizarCamposPorTipo() {
+  
+  private void actualizarCamposPorTipo() {
         boolean esAuto = "Auto".equals(jcbTipoVehiculo.getSelectedItem());
-        jtfCantidadPuertas.setEnabled(esAuto);
+        jtfCantPuertas.setEnabled(esAuto);
         jcbCombustible.setEnabled(esAuto);
         jtfCilindrada.setEnabled(!esAuto);
         if (esAuto) {
             jtfCilindrada.setText("");
         } else {
-            jtfCantidadPuertas.setText("");
+            jtfCantPuertas.setText("");
         }
     }
-
-    private void cargarTablaVehiculos() {
+  
+  private void cargarTablaVehiculos() {
         try {
             vehiculosCargados = vehiculoDAO.listarTodos();
             refrescarTabla(vehiculosCargados);
@@ -243,8 +291,8 @@ public class VehiculoPanel extends javax.swing.JPanel {
             mostrarError("No se pudo cargar la lista de vehículos.", e);
         }
     }
-
-    private void listarPorClienteSeleccionado() {
+  
+  private void listarPorClienteSeleccionado() {
         Cliente cliente = (Cliente) jcbCliente.getSelectedItem();
         if (cliente == null || cliente.getId() == null) {
             mostrarAviso("Seleccioná un cliente válido.");
@@ -257,8 +305,8 @@ public class VehiculoPanel extends javax.swing.JPanel {
             mostrarError("No se pudieron filtrar los vehículos del cliente.", e);
         }
     }
-
-    private void refrescarTabla(List<Vehiculo> lista) {
+  
+  private void refrescarTabla(List<Vehiculo> lista) {
         modeloVehiculos.setRowCount(0);
         for (Vehiculo v : lista) {
             String tipo;
@@ -327,7 +375,7 @@ public class VehiculoPanel extends javax.swing.JPanel {
             if ("Auto".equals(jcbTipoVehiculo.getSelectedItem())) {
                 int puertas;
                 try {
-                    puertas = Integer.parseInt(jtfCantidadPuertas.getText().trim());
+                    puertas = Integer.parseInt(jtfCantPuertas.getText().trim());
                     if (puertas <= 0) {
                         mostrarAviso("La cantidad de puertas debe ser mayor a cero.");
                         return;
@@ -397,7 +445,7 @@ public class VehiculoPanel extends javax.swing.JPanel {
         jtfMarca.setText("");
         jtfModelo.setText("");
         jtfAnio.setText("");
-        jtfCantidadPuertas.setText("");
+        jtfCantPuertas.setText("");
         jtfCilindrada.setText("");
         jcbTipoVehiculo.setSelectedIndex(0);
         if (jcbCombustible.getItemCount() > 0) {
@@ -415,20 +463,20 @@ public class VehiculoPanel extends javax.swing.JPanel {
                 "Error de base de datos", JOptionPane.ERROR_MESSAGE);
     }
 
-    // Variables declaration - do not modify
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabelAnio;
+    private javax.swing.JLabel jLabelCantPuertas;
     private javax.swing.JLabel jLabelCilindrada;
     private javax.swing.JLabel jLabelCliente;
     private javax.swing.JLabel jLabelCombustible;
     private javax.swing.JLabel jLabelMarca;
     private javax.swing.JLabel jLabelModelo;
     private javax.swing.JLabel jLabelPatente;
-    private javax.swing.JLabel jLabelPuertas;
-    private javax.swing.JLabel jLabelTipo;
+    private javax.swing.JLabel jLabelVehiculo;
     private javax.swing.JPanel jPanelBotones;
-    private javax.swing.JPanel jPanelFormulario;
+    private javax.swing.JPanel jPanelCentro;
     private javax.swing.JPanel jPanelSuperior;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbFiltrarCliente;
     private javax.swing.JButton jbGuardar;
@@ -439,10 +487,10 @@ public class VehiculoPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> jcbTipoVehiculo;
     private javax.swing.JTable jtVehiculos;
     private javax.swing.JTextField jtfAnio;
+    private javax.swing.JTextField jtfCantPuertas;
     private javax.swing.JTextField jtfCilindrada;
     private javax.swing.JTextField jtfMarca;
     private javax.swing.JTextField jtfModelo;
     private javax.swing.JTextField jtfPatente;
-    private javax.swing.JTextField jtfCantidadPuertas;
-    // End of variables declaration
+    // End of variables declaration//GEN-END:variables
 }

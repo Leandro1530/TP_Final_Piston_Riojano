@@ -125,6 +125,12 @@ public class OrdenTrabajoFrame extends javax.swing.JPanel {
 
         jLabel6.setText("Vehículo:");
         jPanelDatos.add(jLabel6);
+
+        jcbVehiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbVehiculoActionPerformed(evt);
+            }
+        });
         jPanelDatos.add(jcbVehiculo);
 
         jLabel7.setText("Mecánico:");
@@ -236,6 +242,10 @@ public class OrdenTrabajoFrame extends javax.swing.JPanel {
     private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
         limpiarTodo();
     }//GEN-LAST:event_jbLimpiarActionPerformed
+
+    private void jcbVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbVehiculoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbVehiculoActionPerformed
 
     private void configurarTablas() {
         modeloDetalles = new DefaultTableModel(

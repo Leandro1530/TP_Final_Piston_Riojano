@@ -79,6 +79,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="jcbVehiculo">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbVehiculoActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;ar.edu.unlar.paradigmas3.pistonriojano.modelo.Vehiculo&gt;"/>
           </AuxValues>
