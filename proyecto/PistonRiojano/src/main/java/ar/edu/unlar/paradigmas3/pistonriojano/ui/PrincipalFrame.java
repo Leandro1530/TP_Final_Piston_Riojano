@@ -174,12 +174,6 @@ public class PrincipalFrame extends javax.swing.JFrame {
         mostrarPanel(mecanicoPanel);
     }
 
-    private void mostrarModuloPendiente(String nombreModulo, String responsable) {
-        JOptionPane.showMessageDialog(this,
-                "El panel de " + nombreModulo + " todavía no fue integrado (a cargo de " + responsable + ").",
-                "Módulo pendiente de integración",
-                JOptionPane.INFORMATION_MESSAGE);
-    }
 
     /**
      * @param args the command line arguments
