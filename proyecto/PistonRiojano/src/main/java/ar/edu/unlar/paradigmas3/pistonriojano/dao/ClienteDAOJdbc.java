@@ -38,14 +38,15 @@ public class ClienteDAOJdbc implements ClienteDAO {
 
     @Override
     public void actualizar(Cliente cliente) throws SQLException {
-        String sql = "UPDATE clientes SET nombre = ?, apellido = ?, telefono = ?, email = ? WHERE dni = ?";
+        String sql = "UPDATE clientes SET dni = ?, nombre = ?, apellido = ?, telefono = ?, email = ? WHERE id = ?";
         try (Connection conn = ConexionBD.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, cliente.getNombre());
-            ps.setString(2, cliente.getApellido());
-            ps.setString(3, cliente.getTelefono());
-            ps.setString(4, cliente.getEmail());
-            ps.setString(5, cliente.getDni());
-            ps.executeUpdate();
+        ps.setString(1, cliente.getDni());
+        ps.setString(2, cliente.getNombre());
+        ps.setString(3, cliente.getApellido());
+        ps.setString(4, cliente.getTelefono());
+        ps.setString(5, cliente.getEmail());
+        ps.setInt(6, cliente.getId());
+        ps.executeUpdate();
         }
     }
 
