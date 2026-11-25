@@ -89,6 +89,7 @@ public class ClientePanel extends javax.swing.JPanel {
         String dni = txtDni.getText().trim();
         String nombre = txtNombre.getText().trim();
         String apellido = txtApellido.getText().trim();
+        String email = txtMail.getText().trim();
 
         if (dni.isEmpty() || nombre.isEmpty() || apellido.isEmpty()) {
             JOptionPane.showMessageDialog(
@@ -97,6 +98,16 @@ public class ClientePanel extends javax.swing.JPanel {
                     "Validación",
                     JOptionPane.WARNING_MESSAGE
             );
+            return false;
+        }
+        if (!email.isEmpty() && !email.contains("@")) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "El email ingresado no es válido.",
+                    "Validación",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            txtMail.requestFocus();
             return false;
         }
         return true;
