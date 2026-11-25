@@ -130,7 +130,7 @@ public class PrincipalFrame extends javax.swing.JFrame {
     }
 
     private void mostrarOrdenes() {
-        mostrarPanel(new OrdenTrabajoFrame());
+        mostrarPanel(new OrdenTrabajoPanel());
     }
 
     private void mostrarVehiculos() {
