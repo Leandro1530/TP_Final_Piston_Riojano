@@ -32,7 +32,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Leandro
  */
-public class OrdenTrabajoFrame extends javax.swing.JPanel {
+public class OrdenTrabajoPanel extends javax.swing.JPanel {
 
     private final OrdenTrabajoDAO ordenDAO = new OrdenTrabajoDAOJdbc();
     private final VehiculoDAO vehiculoDAO = new VehiculoDAOJdbc();
@@ -45,9 +45,9 @@ public class OrdenTrabajoFrame extends javax.swing.JPanel {
     private DefaultTableModel modeloOrdenes;
 
     /**
-     * Creates new form OrdenTrabajoFrame
+     * Creates new form OrdenTrabajoPanel
      */
-    public OrdenTrabajoFrame() {
+    public OrdenTrabajoPanel() {
         initComponents();
         configurarTablas();
         configurarComboEstado();
